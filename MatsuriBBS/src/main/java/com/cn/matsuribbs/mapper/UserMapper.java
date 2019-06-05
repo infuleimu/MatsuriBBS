@@ -6,5 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper {
 
-    User selectByUserName(String userName);
+    User selectByUserName(String account);
+    User selectByEmail(String account);
+    User selectByPhone(String account);
 }
