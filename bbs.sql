@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 05/06/2019 08:52:21
+ Date: 05/06/2019 18:25:16
 */
 
 SET NAMES utf8mb4;
@@ -75,7 +75,7 @@ CREATE TABLE `reply`  (
   INDEX `pid`(`pid`) USING BTREE,
   CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `post` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sub_reply
@@ -93,7 +93,7 @@ CREATE TABLE `sub_reply`  (
   INDEX `rid`(`rid`) USING BTREE,
   CONSTRAINT `sub_reply_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `sub_reply_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `reply` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sub_section
@@ -126,7 +126,7 @@ CREATE TABLE `user`  (
   `sex` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `email` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `phone` int(11) NULL DEFAULT NULL,
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `regDate` datetime(0) NULL DEFAULT NULL,
   `admin` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
@@ -136,8 +136,8 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', '123456', '0', NULL, '100000@qq.com', NULL, '2019-06-04 16:42:53', '1');
-INSERT INTO `user` VALUES (2, '1702040031', '123456', '1', NULL, '1200000@qq.com', NULL, '2019-06-04 16:54:37', '0');
+INSERT INTO `user` VALUES (1, 'admin', '123456', '0', NULL, '100000@qq.com', '18078060977', '2019-06-04 16:42:53', '1');
+INSERT INTO `user` VALUES (2, '1702040031', '123456', '1', NULL, '1200000@qq.com', '18078060978', '2019-06-04 16:54:37', '0');
 
 -- ----------------------------
 -- Table structure for user_collection
