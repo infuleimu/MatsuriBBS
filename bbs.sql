@@ -11,31 +11,11 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 04/06/2019 16:01:02
+ Date: 05/06/2019 08:52:21
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for collection
--- ----------------------------
-DROP TABLE IF EXISTS `collection`;
-CREATE TABLE `collection`  (
-  `pid` int(11) NOT NULL,
-  `uid` int(11) NOT NULL,
-  PRIMARY KEY (`pid`, `uid`) USING BTREE,
-  INDEX `uid`(`uid`) USING BTREE,
-  INDEX `pid`(`pid`) USING BTREE,
-  CONSTRAINT `collection_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `post` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `collection_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of collection
--- ----------------------------
-INSERT INTO `collection` VALUES (1, 1);
-INSERT INTO `collection` VALUES (1, 2);
 
 -- ----------------------------
 -- Table structure for main_section
@@ -45,7 +25,7 @@ CREATE TABLE `main_section`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of main_section
@@ -72,7 +52,7 @@ CREATE TABLE `post`  (
   INDEX `uid`(`uid`) USING BTREE,
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `sub_section` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `post_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of post
@@ -127,7 +107,7 @@ CREATE TABLE `sub_section`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `mid`(`mid`) USING BTREE,
   CONSTRAINT `sub_section_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `main_section` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sub_section
@@ -145,17 +125,38 @@ CREATE TABLE `user`  (
   `password` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `sex` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `email` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `email` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `phone` int(11) NULL DEFAULT NULL,
   `regDate` datetime(0) NULL DEFAULT NULL,
-  `admin` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `admin` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `userName`(`userName`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', '123456', '0', NULL, NULL, NULL, '0');
-INSERT INTO `user` VALUES (2, 'asd123', '123456', '0', NULL, NULL, NULL, '0');
+INSERT INTO `user` VALUES (1, 'admin', '123456', '0', NULL, '100000@qq.com', NULL, '2019-06-04 16:42:53', '1');
+INSERT INTO `user` VALUES (2, '1702040031', '123456', '1', NULL, '1200000@qq.com', NULL, '2019-06-04 16:54:37', '0');
+
+-- ----------------------------
+-- Table structure for user_collection
+-- ----------------------------
+DROP TABLE IF EXISTS `user_collection`;
+CREATE TABLE `user_collection`  (
+  `pid` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  PRIMARY KEY (`pid`, `uid`) USING BTREE,
+  INDEX `uid`(`uid`) USING BTREE,
+  INDEX `pid`(`pid`) USING BTREE,
+  CONSTRAINT `user_collection_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `post` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `user_collection_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_collection
+-- ----------------------------
+INSERT INTO `user_collection` VALUES (1, 1);
+INSERT INTO `user_collection` VALUES (1, 2);
 
 SET FOREIGN_KEY_CHECKS = 1;
