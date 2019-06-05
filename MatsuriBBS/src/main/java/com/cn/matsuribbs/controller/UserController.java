@@ -22,5 +22,12 @@ public class UserController {
 
         return user;
     }
-
+    @GetMapping("api/register")
+    public User Register(User user){
+        boolean flag=userBiz.register(user);
+        if(flag){
+            return null;
+        }
+        return  user;
+    }
 }

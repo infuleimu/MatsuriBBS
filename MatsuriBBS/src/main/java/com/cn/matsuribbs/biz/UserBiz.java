@@ -20,4 +20,14 @@ public class UserBiz {
           return null;
         }
     }
+
+    public boolean register(User user) {
+        try{
+            UserMapper.insertFun(user);
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return  false;
+        }
+    }
 }
