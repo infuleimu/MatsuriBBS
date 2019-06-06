@@ -10,6 +10,7 @@ public class User {
     private char sex;
     private String avatar;
     private String email;
+    private String phone;
     private Timestamp regDate = new Timestamp((new java.util.Date()).getTime());
     private char admin = 0;
 
@@ -59,6 +60,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Timestamp getRegDate() {
