@@ -16,7 +16,6 @@ public class UserBiz {
 
     @Autowired
     UserMapper userMapper;
-
     public Result login(String account, String password) {
 
         User user;
@@ -36,5 +35,20 @@ public class UserBiz {
         } else {
             return ResultFactory.buildFailResult("登录失败,用户名或密码不正确");
         }
+    }
+
+    /**
+     * 注册功能
+     * @param user 拿到注册信息user
+     * @return
+     */
+    public Result register(User user) {
+//        boolean flag = UserMapper.insertFun(user);
+//        if(flag){
+//            return ResultFactory.buildSuccessResult(flag);
+//        }else {
+//            return ResultFactory.buildFailResult("注册失败,请检查您输入的信息");
+//        }
+        return  null;
     }
 }
