@@ -4,34 +4,34 @@ import java.sql.Timestamp;
 
 public class Reply {
 
-    private int id;
-    private int uid;
-    private int pid;
+    private Integer id;
+    private Integer uid;
+    private Integer pid;
     private String content;
     private Timestamp replyDate = new Timestamp((new java.util.Date()).getTime());
-    private int likeNum = 0;
+    private Integer likeNum = 0;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getUid() {
+    public Integer getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(Integer uid) {
         this.uid = uid;
     }
 
-    public int getPid() {
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
@@ -51,11 +51,11 @@ public class Reply {
         this.replyDate = replyDate;
     }
 
-    public int getLikeNum() {
+    public Integer getLikeNum() {
         return likeNum;
     }
 
-    public void setLikeNum(int likeNum) {
+    public void setLikeNum(Integer likeNum) {
         this.likeNum = likeNum;
     }
 }

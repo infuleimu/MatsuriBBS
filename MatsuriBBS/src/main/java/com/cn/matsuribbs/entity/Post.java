@@ -4,38 +4,38 @@ import java.sql.Timestamp;
 
 public class Post {
 
-    private int id;
-    private int sid;
-    private int uid;
+    private Integer id;
+    private Integer sid;
+    private Integer uid;
     private String title;
     private String content;
     private Timestamp postDate = new Timestamp((new java.util.Date()).getTime());
     private char type;
-    private int replyNum = 0;
-    private int viewNum = 0;
-    private int likeNum = 0;
+    private Integer replyNum = 0;
+    private Integer viewNum = 0;
+    private Integer likeNum = 0;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getSid() {
+    public Integer getSid() {
         return sid;
     }
 
-    public void setSid(int sid) {
+    public void setSid(Integer sid) {
         this.sid = sid;
     }
 
-    public int getUid() {
+    public Integer getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(Integer uid) {
         this.uid = uid;
     }
 
@@ -71,27 +71,27 @@ public class Post {
         this.type = type;
     }
 
-    public int getReplyNum() {
+    public Integer getReplyNum() {
         return replyNum;
     }
 
-    public void setReplyNum(int replyNum) {
+    public void setReplyNum(Integer replyNum) {
         this.replyNum = replyNum;
     }
 
-    public int getViewNum() {
+    public Integer getViewNum() {
         return viewNum;
     }
 
-    public void setViewNum(int viewNum) {
+    public void setViewNum(Integer viewNum) {
         this.viewNum = viewNum;
     }
 
-    public int getLikeNum() {
+    public Integer getLikeNum() {
         return likeNum;
     }
 
-    public void setLikeNum(int likeNum) {
+    public void setLikeNum(Integer likeNum) {
         this.likeNum = likeNum;
     }
 }

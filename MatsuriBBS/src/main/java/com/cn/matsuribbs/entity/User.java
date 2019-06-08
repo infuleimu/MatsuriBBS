@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class User {
 
-    private int id;
+    private Integer id;
     private String userName;
     private String password;
     private char sex;
@@ -14,11 +14,11 @@ public class User {
     private Timestamp regDate = new Timestamp((new java.util.Date()).getTime());
     private char admin = 0;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -2,22 +2,22 @@ package com.cn.matsuribbs.entity;
 
 public class UserCollection {
 
-    private int pid;
-    private int uid;
+    private Integer pid;
+    private Integer uid;
 
-    public int getPid() {
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
-    public int getUid() {
+    public Integer getUid() {
         return uid;
     }
 
-    public void setUid(int uid) {
+    public void setUid(Integer uid) {
         this.uid = uid;
     }
 }

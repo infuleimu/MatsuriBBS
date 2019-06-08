@@ -1,18 +1,17 @@
-package com.cn.matsuribbs.utils;
+package com.cn.matsuribbs.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import java.util.*;
 
 public class Token {
 
-    private String key = "cchh";
+    private static String key = "cchh103";
 
     /**
      * 签发自定义token
@@ -22,17 +21,17 @@ public class Token {
             Algorithm algorithm = Algorithm.HMAC256(key);
             Map<String, Object> map = new HashMap<String, Object>();
             Date nowDate = new Date();
-            //Date expireDate = getAfterDate(nowDate, 0, 0, 0, 2, 0, 0);    //获取当前时间2小时后的时间
+            Date expireDate = getAfterDate(nowDate, 0, 0, 7, 0, 0, 10);    //获取当前时间2小时后的时间
             map.put("alg", "HS256");
             map.put("typ", "JWT");
             String token = JWT.create()
                     .withHeader(map)    //设置头部信息 Header
-                    .withClaim("loginName", userName)    //设置 载荷 Payload
+                    .withClaim("userName", userName)    //设置 载荷 Payload
                     .withIssuer("DickDragon")    //签名是有谁生成 例如 服务器
                     //.withNotBefore(new Date())    //定义在什么时间之前，该jwt都是不可用的.
                     .withAudience("APP")    //签名的观众 也可以理解谁接受签名的
                     .withIssuedAt(nowDate)     //生成签名的时间
-                    //.withExpiresAt(expireDate)    //签名过期的时间
+                    .withExpiresAt(expireDate)    //签名过期的时间
                     .sign(algorithm);    //签名 Signature
             return token;
         } catch (JWTCreationException exception) {
@@ -43,24 +42,25 @@ public class Token {
 
     /**
      *  解析token
-     * @param token  接收前台传来的token
+     * @param token  接收前台传来的token,进行验证
      */
-    public void verifyToken(String token) {
+    public static boolean verifyToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(key);
             JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer("DickDragon")
                 .build();
             DecodedJWT jwt = verifier.verify(token);
-            String subject = jwt.getSubject();
-            Map<String, Claim> claims = jwt.getClaims();
-            Claim claim = claims.get("loginName");
+            /*Map<String, Claim> claims = jwt.getClaims();
+            Claim claim = claims.get("userName");    //负载内容
             System.out.println(claim.asString());
-            List<String> audience = jwt.getAudience();
-            System.out.println(subject);
-            System.out.println(audience.get(0));
+            List<String> audience = jwt.getAudience();    //接收token的用户
+            System.out.println(jwt.getSubject());    //主题
+            System.out.println(audience.get(0));*/
+            return true;
         } catch (JWTVerificationException exception){
             exception.printStackTrace();
+            return false;
         }
     }
 
