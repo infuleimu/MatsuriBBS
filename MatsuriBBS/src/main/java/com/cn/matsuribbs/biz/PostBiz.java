@@ -1,4 +1,38 @@
 package com.cn.matsuribbs.biz;
 
+import com.cn.matsuribbs.entity.Post;
+import com.cn.matsuribbs.mapper.PostMapper;
+import com.cn.matsuribbs.result.Result;
+import com.cn.matsuribbs.result.ResultFactory;
+import com.cn.matsuribbs.util.PageBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
 public class PostBiz {
+
+    @Autowired
+    PostMapper postMapper;
+
+    /**
+     *  分页查看帖子/对应版块帖子
+     * @param page 当前页
+     * @param limit 每页获取记录数量
+     * @param sid 版块id
+     * @return
+     */
+    public Result viewPost(Integer page, Integer limit, Integer sid) {
+        PageBean pageBean = new PageBean(page, limit , sid);
+        int total = postMapper.selectCountByPageFun(pageBean);
+        List<Post> postList = postMapper.selectByPageFun(pageBean);
+        Map map = new HashMap();
+        map.put("total", total);
+        map.put("page" , pageBean.getPage());
+        map.put("list", postList);
+        return ResultFactory.buildSuccessResult(map);
+    }
 }

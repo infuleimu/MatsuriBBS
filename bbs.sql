@@ -11,11 +11,26 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 05/06/2019 18:25:16
+ Date: 08/06/2019 16:44:22
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for announcement
+-- ----------------------------
+DROP TABLE IF EXISTS `announcement`;
+CREATE TABLE `announcement`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `title` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `content` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `pDate` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `uid`(`uid`) USING BTREE,
+  CONSTRAINT `announcement_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for main_section
@@ -25,7 +40,7 @@ CREATE TABLE `main_section`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of main_section
@@ -58,6 +73,7 @@ CREATE TABLE `post`  (
 -- Records of post
 -- ----------------------------
 INSERT INTO `post` VALUES (1, 1, 1, '嘻嘻哈哈', '喂喂喂', '2019-06-04 00:00:00', '1', 0, 0, 0);
+INSERT INTO `post` VALUES (2, 2, 1, 'test', 'nmsl', '2019-06-08 14:55:43', '1', 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for reply
@@ -107,7 +123,7 @@ CREATE TABLE `sub_section`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `mid`(`mid`) USING BTREE,
   CONSTRAINT `sub_section_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `main_section` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sub_section

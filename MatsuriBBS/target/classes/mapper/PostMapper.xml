@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    <mapper namespace="com.cn.matsuribbs.mapper.PostMapper">
+        <select id="selectAll" parameterType="String" resultType="post">
+            select * from post
+        </select>
+
+        <sql id="post_where">
+            <if test="sid != null and sid !='' ">
+                sid = "${sid}"
+            </if>
+        </sql>
+
+        <select id="selectCountByPageFun" parameterType="com.cn.matsuribbs.util.PageBean" resultType="int">
+            SELECT count(*) FROM post
+            <where>
+                <include refid="post_where"></include>
+            </where>
+        </select>
+
+        <select id="selectByPageFun" parameterType="com.cn.matsuribbs.util.PageBean" resultType="post">
+            SELECT * FROM post
+            <where>
+                <include refid="post_where"></include>
+            </where>
+            limit ${offset},${limit}
+        </select>
+
+        <!--<insert id="insertFun" parameterType="tblCustomer">
+			insert into tbl_customer(customerName,password,customerTrueName,customerAddress,sex,customerEmail,customerPhone,customerRegDate)
+			values(#{customerName},#{password},#{customerTrueName},#{customerAddress},#{sex},#{customerEmail},#{customerPhone},#{customerRegDate})
+		</insert>
+
+		<delete id="deleteFun" parameterType="int">
+			delete from tbl_customer where customerId=#{id}
+		</delete>-->
+
+    </mapper>

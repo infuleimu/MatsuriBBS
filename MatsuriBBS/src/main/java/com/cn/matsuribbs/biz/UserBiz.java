@@ -4,7 +4,7 @@ import com.cn.matsuribbs.entity.User;
 import com.cn.matsuribbs.mapper.UserMapper;
 import com.cn.matsuribbs.result.Result;
 import com.cn.matsuribbs.result.ResultFactory;
-import com.cn.matsuribbs.utils.Token;
+import com.cn.matsuribbs.util.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

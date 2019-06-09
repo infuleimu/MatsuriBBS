@@ -13,6 +13,10 @@ public class ResultFactory {
         return buildResult(ResultCode.FAIL, message, null);
     }
 
+    public static Result buildPermissionFailResult(String message) {
+        return buildResult(ResultCode.UNAUTHORIZED, message, null);
+    }
+
     public static Result buildResult(ResultCode resultCode, String message, Object data) {
         return buildResult(resultCode.code, message, data);
     }

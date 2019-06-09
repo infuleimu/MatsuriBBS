@@ -1,6 +1,7 @@
 package com.cn.matsuribbs.controller;
 
 import com.cn.matsuribbs.biz.UserBiz;
+import com.cn.matsuribbs.entity.User;
 import com.cn.matsuribbs.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
