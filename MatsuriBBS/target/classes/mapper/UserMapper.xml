@@ -8,17 +8,15 @@
         <select id="selectByUserName" parameterType="String" resultType="user">
             select * from user where userName=#{userName}
         </select>
+
         <select id="selectByEmail" parameterType="String" resultType="user">
             select * from user where email=#{email}
         </select>
-        <select id="selectByPhone" parameterType="String" resultType="user">
-            select * from user where phone=#{phone}
-        </select>
-        <!---->
-        <!--<insert id="insertFun" parameterType="tblCustomer">-->
-			<!--insert into tbl_customer(customerName,password,customerTrueName,customerAddress,sex,customerEmail,customerPhone,customerRegDate)-->
-			<!--values(#{customerName},#{password},#{customerTrueName},#{customerAddress},#{sex},#{customerEmail},#{customerPhone},#{customerRegDate})-->
-		<!--</insert>-->
+
+        <insert id="insertFun" parameterType="user">
+			insert into user(userName,password,sex,avatar,email,phone,regDate,admin)
+			values(#{userName},#{password},#{sex},#{avatar},#{email},#{phone},#{regDate},#{admin})
+		</insert>
 		<!---->
 		<!--<delete id="deleteFun" parameterType="int">-->
 			<!--delete from tbl_customer where customerId=#{id}-->

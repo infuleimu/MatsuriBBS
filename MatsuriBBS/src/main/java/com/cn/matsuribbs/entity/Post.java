@@ -1,7 +1,10 @@
 package com.cn.matsuribbs.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.sql.Timestamp;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_EMPTY)
 public class Post {
 
     private Integer id;
@@ -14,6 +17,8 @@ public class Post {
     private Integer replyNum = 0;
     private Integer viewNum = 0;
     private Integer likeNum = 0;
+
+    private User author;
 
     public Integer getId() {
         return id;
@@ -93,5 +98,13 @@ public class Post {
 
     public void setLikeNum(Integer likeNum) {
         this.likeNum = likeNum;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

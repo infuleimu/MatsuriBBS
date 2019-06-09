@@ -7,9 +7,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
 
 
-    boolean insertFun(User user);
+    void insertFun(User user);
 
     User selectByUserName(String account);
+
     User selectByEmail(String account);
+
     User selectByPhone(String account);
 }

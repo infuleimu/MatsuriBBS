@@ -21,9 +21,22 @@
             </where>
         </select>
 
-        <select id="selectByPageFun" parameterType="com.cn.matsuribbs.util.PageBean" resultType="post">
-            SELECT * FROM post
+        <resultMap id="postBean" type="post">
+            <id column="id" property="id" />
+            <result column="title" property="title" />
+            <result column="content" property="content" />
+            <result column="postDate" property="postDate" />
+            <result column="type" property="type" />
+            <result column="replyNum" property="replyNum" />
+            <result column="viewNum" property="viewNum" />
+            <association property="author" javaType="User">
+                <result column="userName" property="userName" />
+            </association>
+        </resultMap>
+        <select id="selectByPageFun" parameterType="com.cn.matsuribbs.util.PageBean" resultMap="postBean">
+            SELECT p.*,u.userName FROM post p , user u
             <where>
+                p.uid = u.id
                 <include refid="post_where"></include>
             </where>
             limit ${offset},${limit}

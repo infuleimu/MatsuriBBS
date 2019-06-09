@@ -1,7 +1,10 @@
 package com.cn.matsuribbs.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.sql.Timestamp;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
 public class User {
 
     private Integer id;
@@ -11,7 +14,7 @@ public class User {
     private String avatar;
     private String email;
     private String phone;
-    private Timestamp regDate = new Timestamp((new java.util.Date()).getTime());
+    private Timestamp regDate;
     private char admin = 0;
 
     public Integer getId() {
@@ -75,7 +78,11 @@ public class User {
     }
 
     public void setRegDate(Timestamp regDate) {
-        this.regDate = regDate;
+        if(regDate == null){
+            this.regDate = new Timestamp((new java.util.Date()).getTime());
+        } else {
+            this.regDate = regDate;
+        }
     }
 
     public char getAdmin() {

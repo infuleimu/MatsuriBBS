@@ -16,19 +16,21 @@ public class UserBiz {
 
     @Autowired
     UserMapper userMapper;
-    public Result login(String account, String password) {
 
-        User user;
-        //验证是否使用邮箱登录
-        if(account.matches("^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$")){
-            user = userMapper.selectByEmail(account);
-        } else {
-            user = userMapper.selectByPhone(account);
-        }
+    /**
+     * 验证邮箱和密码,派发token
+     * @param email 邮箱
+     * @param password 密码
+     * @return
+     */
+    public Result login(String email, String password) {
+
+        User user = userMapper.selectByEmail(email);
 
         if(user != null && user.getPassword().equals(password)){
             Token token = new Token();
             Map map = new HashMap<>();
+            user.setPassword(null);    //用比较傻逼的操作让密码为空,防止前端获取到用户密码
             map.put("user", user);
             map.put("token", token.createTokenWithClaim(user.getUserName()));
             return ResultFactory.buildSuccessResult(map);    //用ResultFactory封装响应结果
@@ -39,16 +41,21 @@ public class UserBiz {
 
     /**
      * 注册功能
-     * @param user 拿到注册信息user
+     * @param user 拿到用户的注册信息user
      * @return
      */
-    public Result register(User user) {
-//        boolean flag = UserMapper.insertFun(user);
-//        if(flag){
-//            return ResultFactory.buildSuccessResult(flag);
-//        }else {
-//            return ResultFactory.buildFailResult("注册失败,请检查您输入的信息");
-//        }
-        return  null;
+    public Result register(Integer type, User user) {
+        try {
+            userMapper.insertFun(user);
+
+            Token token = new Token();
+            Map map = new HashMap<>();
+            user.setPassword(null);    //用比较傻逼的操作让密码为空,防止前端获取到用户密码
+            map.put("user", user);
+            map.put("token", token.createTokenWithClaim(user.getUserName()));
+            return ResultFactory.buildSuccessResult(map);
+        }catch (Exception e){
+            return ResultFactory.buildFailResult("注册失败,请检查您输入的信息");
+        }
     }
 }
