@@ -9,12 +9,12 @@
         </select>
 
         <sql id="post_where">
-            <if test="sid != null and sid !='' ">
-                sid = "${sid}"
+            <if test="id != null and id !='' ">
+                id = "${id}"
             </if>
         </sql>
 
-        <select id="selectCountByPageFun" parameterType="com.cn.matsuribbs.util.PageBean" resultType="int">
+        <select id="selectCountByPageFun" parameterType="PageBean" resultType="int">
             SELECT count(*) FROM post
             <where>
                 <include refid="post_where"></include>
@@ -33,7 +33,7 @@
                 <result column="userName" property="userName" />
             </association>
         </resultMap>
-        <select id="selectByPageFun" parameterType="com.cn.matsuribbs.util.PageBean" resultMap="postBean">
+        <select id="selectByPageFun" parameterType="PageBean" resultMap="postBean">
             SELECT p.*,u.userName FROM post p , user u
             <where>
                 p.uid = u.id

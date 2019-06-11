@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+    <mapper namespace="com.cn.matsuribbs.mapper.ReplyMapper">
+
+        <resultMap id="ReplyBean" type="reply">
+            <id column="id" property="id" />
+            <result column="content" property="content" />
+            <result column="replyDate" property="replyDate" />
+            <result column="likeNum" property="likeNum" />
+            <association property="author" javaType="User">
+                <id column="id" property="id" />
+                <result column="userName" property="userName" />
+                <result column="avatar" property="avatar" />
+            </association>
+            <collection property="subReply" ofType="SubReply">
+                <id column="sub_id" property="id" />
+                <result column="sub_content" property="content" />
+                <result column="sub_replyDate" property="replyDate" />
+                <result column="sub_likeNum" property="likeNum" />
+                <association property="author" javaType="User">
+                    <id column="sub_uid" property="id" />
+                    <result column="sub_userName" property="userName" />
+                    <result column="sub_avatar" property="avatar" />
+                </association>
+            </collection>
+        </resultMap>
+        <select id="selectByPostIDFun" parameterType="PageBean" resultMap="ReplyBean">
+            SELECT * FROM (SELECT r.*,u.id mid,u.userName muserName,u.avatar mavatar FROM reply r,user u where r.uid =u.id and r.pid=#{id} limit ${offset},${limit}) a LEFT JOIN (SELECT sr.id sub_id,sr.rid sub_rid,sr.content sub_content,sr.replyDate sub_replyDate,sr.likeNum sub_likeNum,u.id sub_uid,u.userName sub_userName,u.avatar sub_avatar FROM reply r LEFT JOIN sub_reply sr ON sr.rid = r.id LEFT JOIN user u ON sr.uid =u.id and r.pid=#{id} LEFT JOIN sub_reply srb on srb.rid = sr.rid and sr.replyDate>srb.replyDate GROUP BY sr.id,u.id HAVING count(srb.id)&lt;3 ORDER BY sr.replyDate) b on a.id=b.sub_rid and pid=#{id} ORDER BY a.replyDate
+        </select>
+
+        <select id="selectCountByPageFun" parameterType="PageBean" resultType="int">
+            SELECT count(*) FROM reply where pid=#{id}
+        </select>
+        <!--<insert id="insertFun" parameterType="tblCustomer">
+			insert into tbl_customer(customerName,password,customerTrueName,customerAddress,sex,customerEmail,customerPhone,customerRegDate)
+			values(#{customerName},#{password},#{customerTrueName},#{customerAddress},#{sex},#{customerEmail},#{customerPhone},#{customerRegDate})
+		</insert>
+
+		<delete id="deleteFun" parameterType="int">
+			delete from tbl_customer where customerId=#{id}
+		</delete>-->
+
+    </mapper>

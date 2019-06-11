@@ -1,15 +1,20 @@
 package com.cn.matsuribbs.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.sql.Timestamp;
 
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class SubReply {
 
     private Integer id;
     private Integer uid;
-    private Integer sid;
+    private Integer rid;
     private String content;
     private Timestamp replyDate = new Timestamp((new java.util.Date()).getTime());
     private Integer likeNum = 0;
+
+    private User author;
 
     public Integer getId() {
         return id;
@@ -27,12 +32,12 @@ public class SubReply {
         this.uid = uid;
     }
 
-    public Integer getSid() {
-        return sid;
+    public Integer getRid() {
+        return rid;
     }
 
-    public void setSid(Integer sid) {
-        this.sid = sid;
+    public void setRid(Integer rid) {
+        this.rid = rid;
     }
 
     public String getContent() {
@@ -57,5 +62,13 @@ public class SubReply {
 
     public void setLikeNum(Integer likeNum) {
         this.likeNum = likeNum;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

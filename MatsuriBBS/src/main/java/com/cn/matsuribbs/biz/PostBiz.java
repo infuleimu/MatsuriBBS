@@ -25,8 +25,8 @@ public class PostBiz {
      * @param sid 版块id
      * @return
      */
-    public Result viewPost(Integer page, Integer limit, Integer sid) {
-        PageBean pageBean = new PageBean(page, limit , sid);
+    public Result viewPost(Integer page, Integer limit, Integer id) {
+        PageBean pageBean = new PageBean(page, limit , id);
         int total = postMapper.selectCountByPageFun(pageBean);
         List<Post> postList = postMapper.selectByPageFun(pageBean);
         Map map = new HashMap();

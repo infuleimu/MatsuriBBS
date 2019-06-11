@@ -10,9 +10,6 @@ public interface UserCollectionMapper {
 
     void insertCollectionFun(Post post, User user);
 
-
-
-
     void selectAllCollectionByIdFun();
 
     void delectCollectionByIdFun(Post post, User user);

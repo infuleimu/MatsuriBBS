@@ -1,7 +1,12 @@
 package com.cn.matsuribbs.entity;
 
-import java.sql.Timestamp;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class Reply {
 
     private Integer id;
@@ -10,6 +15,10 @@ public class Reply {
     private String content;
     private Timestamp replyDate = new Timestamp((new java.util.Date()).getTime());
     private Integer likeNum = 0;
+
+    private User author;
+
+    private List<SubReply> subReply;
 
     public Integer getId() {
         return id;
@@ -57,5 +66,21 @@ public class Reply {
 
     public void setLikeNum(Integer likeNum) {
         this.likeNum = likeNum;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public List<SubReply> getSubReply() {
+        return subReply;
+    }
+
+    public void setSubReply(List<SubReply> subReply) {
+        this.subReply = subReply;
     }
 }

@@ -13,8 +13,8 @@ public class PostController {
     PostBiz postBiz;
 
     @GetMapping("api/post")
-    public Result ViewAllPost(Integer page, Integer limit, Integer sid){
-        return postBiz.viewPost(page, limit, sid);
+    public Result ViewAllPost(Integer page, Integer limit, Integer id){
+        return postBiz.viewPost(page, limit, id);
     }
 
 }

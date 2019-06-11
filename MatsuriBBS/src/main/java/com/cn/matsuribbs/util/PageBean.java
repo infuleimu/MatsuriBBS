@@ -4,9 +4,9 @@ public class PageBean {
     private Integer page;
     private Integer limit;
     private Integer offset;
-    private Integer sid;
+    private Integer id;
 
-    public PageBean(Integer page, Integer limit, Integer sid) {
+    public PageBean(Integer page, Integer limit, Integer id) {
         if(page == null || page <1){
             page = 1;
         }
@@ -16,7 +16,7 @@ public class PageBean {
         }
         this.limit = limit;
         this.offset = (this.page-1) * this.limit;
-        this.sid = sid;
+        this.id = id;
     }
 
     public Integer getPage() {
@@ -43,11 +43,11 @@ public class PageBean {
         this.offset = offset;
     }
 
-    public Integer getSid() {
-        return sid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setSid(Integer sid) {
-        this.sid = sid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 }
