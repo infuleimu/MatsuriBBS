@@ -10,7 +10,7 @@
 
         <sql id="post_where">
             <if test="id != null and id !='' ">
-                id = "${id}"
+                and id = "${id}"
             </if>
         </sql>
 
@@ -34,12 +34,11 @@
             </association>
         </resultMap>
         <select id="selectByPageFun" parameterType="PageBean" resultMap="postBean">
-            SELECT p.*,u.userName FROM post p , user u
-            <where>
-                p.uid = u.id
-                <include refid="post_where"></include>
-            </where>
-            limit ${offset},${limit}
+            SELECT p.*,u.userName FROM post p LEFT JOIN user u ON p.uid = u.id LEFT JOIN reply r ON p.id = r.pid LEFT JOIN sub_reply sr ON r.id = sr.rid GROUP BY p.id,u.id,r.id,sr.id
+            <if test="id != null and id !='' ">
+                HAVING p.sid = "${id}"
+            </if>
+            order by IFNULL(sr.replyDate,IFNULL(r.replyDate,p.postDate)) desc limit ${offset},${limit}
         </select>
 
         <!--<insert id="insertFun" parameterType="tblCustomer">
