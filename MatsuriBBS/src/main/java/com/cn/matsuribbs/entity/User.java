@@ -14,7 +14,7 @@ public class User {
     private String avatar;
     private String email;
     private String phone;
-    private Timestamp regDate;
+    private Timestamp regDate = new Timestamp((new java.util.Date()).getTime());
     private char admin = 0;
 
     public Integer getId() {
@@ -78,11 +78,7 @@ public class User {
     }
 
     public void setRegDate(Timestamp regDate) {
-        if(regDate == null){
-            this.regDate = new Timestamp((new java.util.Date()).getTime());
-        } else {
-            this.regDate = regDate;
-        }
+        this.regDate = regDate;
     }
 
     public char getAdmin() {

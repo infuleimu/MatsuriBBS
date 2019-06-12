@@ -5,10 +5,7 @@ import com.cn.matsuribbs.entity.User;
 import com.cn.matsuribbs.result.Result;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -27,8 +24,8 @@ public class UserController {
         return userBiz.login(email, password);
     }
 
-    @PostMapping("api/register/{type}")
-    public Result Register(@PathVariable Integer type, User user) {
-        return userBiz.register(type,user);
+    @PostMapping("api/register")
+    public Result Register(@RequestBody  User user) {
+        return userBiz.register(user);
     }
 }

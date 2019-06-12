@@ -9,9 +9,6 @@ public interface UserMapper {
 
     void insertFun(User user);
 
-    User selectByUserName(String account);
+    User selectByEmail(String email);
 
-    User selectByEmail(String account);
-
-    User selectByPhone(String account);
 }

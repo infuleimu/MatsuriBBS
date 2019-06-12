@@ -44,14 +44,15 @@ public class UserBiz {
      * @param user 拿到用户的注册信息user
      * @return
      */
-    public Result register(Integer type, User user) {
+    public Result register(User user) {
         try {
             userMapper.insertFun(user);
+            User u = userMapper.selectByEmail(user.getEmail());    //后台再从数据库查询拿出用户
 
             Token token = new Token();
             Map map = new HashMap<>();
-            user.setPassword(null);    //用比较傻逼的操作让密码为空,防止前端获取到用户密码
-            map.put("user", user);
+            u.setPassword(null);    //用比较傻逼的操作让密码为空,防止前端获取到用户密码
+            map.put("user", u);
             map.put("token", token.createTokenWithClaim(user.getUserName()));
             return ResultFactory.buildSuccessResult(map);
         }catch (Exception e){
