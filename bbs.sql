@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 09/06/2019 18:11:47
+ Date: 18/06/2019 17:31:21
 */
 
 SET NAMES utf8mb4;
@@ -40,12 +40,24 @@ CREATE TABLE `main_section`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of main_section
 -- ----------------------------
 INSERT INTO `main_section` VALUES (1, '弟弟');
+
+-- ----------------------------
+-- Table structure for message
+-- ----------------------------
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `receive_uid` int(11) NOT NULL,
+  `rid` int(11) NOT NULL,
+  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for post
@@ -56,7 +68,7 @@ CREATE TABLE `post`  (
   `sid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `title` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `content` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `content` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `postDate` datetime(0) NULL DEFAULT NULL,
   `type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `replyNum` int(11) NULL DEFAULT NULL,
@@ -65,15 +77,18 @@ CREATE TABLE `post`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sid`(`sid`) USING BTREE,
   INDEX `uid`(`uid`) USING BTREE,
-  CONSTRAINT `post_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `sub_section` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `post_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `sub_section` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `post_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of post
 -- ----------------------------
 INSERT INTO `post` VALUES (1, 1, 1, '嘻嘻哈哈', '喂喂喂', '2019-06-04 00:00:00', '1', 0, 0, 0);
-INSERT INTO `post` VALUES (2, 2, 1, 'test', 'nmsl', '2019-06-08 14:55:43', '1', 0, 0, 0);
+INSERT INTO `post` VALUES (2, 2, 1, 'test', 'nmsl', '2019-06-11 19:18:39', '1', 0, 0, 0);
+INSERT INTO `post` VALUES (3, 3, 1, '测试', '测试', '2019-06-11 18:56:29', '1', 0, 0, 0);
+INSERT INTO `post` VALUES (4, 1, 1, '测试测试', '测试测试', '2019-06-11 19:24:34', '1', 0, 0, 0);
+INSERT INTO `post` VALUES (5, 1, 1, '发帖测试', '发帖测试', '2019-06-18 07:30:18', '1', 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for reply
@@ -90,8 +105,20 @@ CREATE TABLE `reply`  (
   INDEX `uid`(`uid`) USING BTREE,
   INDEX `pid`(`pid`) USING BTREE,
   CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `post` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of reply
+-- ----------------------------
+INSERT INTO `reply` VALUES (1, 2, 1, '傻逼楼主,nmsl', '2019-06-10 16:00:43', 0);
+INSERT INTO `reply` VALUES (2, 1, 1, '你说你妈呢', '2019-06-10 16:02:43', 0);
+INSERT INTO `reply` VALUES (3, 3, 1, '看戏看戏', '2019-06-10 16:19:36', 0);
+INSERT INTO `reply` VALUES (4, 2, 1, 'wcnm', '2019-06-10 20:20:53', 0);
+INSERT INTO `reply` VALUES (5, 3, 1, '灌水测试01', '2019-06-11 16:42:24', 0);
+INSERT INTO `reply` VALUES (6, 3, 1, '灌水测试02', '2019-06-11 16:42:50', 0);
+INSERT INTO `reply` VALUES (7, 3, 1, '灌水测试03', '2019-06-11 16:44:17', 0);
+INSERT INTO `reply` VALUES (8, 3, 1, '灌水测试04', '2019-06-11 16:44:33', 0);
 
 -- ----------------------------
 -- Table structure for sub_reply
@@ -108,8 +135,19 @@ CREATE TABLE `sub_reply`  (
   INDEX `uid`(`uid`) USING BTREE,
   INDEX `rid`(`rid`) USING BTREE,
   CONSTRAINT `sub_reply_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `sub_reply_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `reply` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  CONSTRAINT `sub_reply_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `reply` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sub_reply
+-- ----------------------------
+INSERT INTO `sub_reply` VALUES (1, 3, 1, '吃瓜', '2019-06-10 19:47:02', 0);
+INSERT INTO `sub_reply` VALUES (2, 2, 1, 'sb', '2019-06-10 21:04:33', 0);
+INSERT INTO `sub_reply` VALUES (3, 1, 1, '???', '2019-06-10 23:48:54', 0);
+INSERT INTO `sub_reply` VALUES (4, 2, 1, '¿', '2019-06-10 23:49:12', 0);
+INSERT INTO `sub_reply` VALUES (5, 3, 2, 'zaima?', '2019-06-11 15:40:26', 0);
+INSERT INTO `sub_reply` VALUES (6, 1, 2, '???什么鬼', '2019-06-11 15:40:50', 0);
+INSERT INTO `sub_reply` VALUES (7, 2, 2, '认真的?', '2019-06-11 16:26:24', 0);
 
 -- ----------------------------
 -- Table structure for sub_section
@@ -130,6 +168,7 @@ CREATE TABLE `sub_section`  (
 -- ----------------------------
 INSERT INTO `sub_section` VALUES (1, 1, '弟弟时刻', NULL);
 INSERT INTO `sub_section` VALUES (2, 1, '弟弟心声', NULL);
+INSERT INTO `sub_section` VALUES (3, 1, '弟弟杂谈', NULL);
 
 -- ----------------------------
 -- Table structure for user
@@ -148,13 +187,15 @@ CREATE TABLE `user`  (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `email`(`email`) USING BTREE,
   UNIQUE INDEX `phone`(`phone`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'admin', '123456', '0', NULL, '100000@qq.com', '18078060977', '2019-06-04 16:42:53', '1');
 INSERT INTO `user` VALUES (2, '1702040031', '123456', '1', NULL, '1200000@qq.com', '18078060978', '2019-06-04 16:54:37', '0');
+INSERT INTO `user` VALUES (3, '迪克', '123456', '1', NULL, '100124@qq.com', '18078060979', '2019-06-10 16:20:37', '1');
+INSERT INTO `user` VALUES (4, 'yuge', '123456', '\0', NULL, '1660213@qq.com', NULL, '2019-06-12 09:17:41', '\0');
 
 -- ----------------------------
 -- Table structure for user_collection
@@ -175,5 +216,36 @@ CREATE TABLE `user_collection`  (
 -- ----------------------------
 INSERT INTO `user_collection` VALUES (1, 1);
 INSERT INTO `user_collection` VALUES (1, 2);
+
+-- ----------------------------
+-- Procedure structure for reply
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `reply`;
+delimiter ;;
+CREATE PROCEDURE `reply`(IN pid INT)
+BEGIN
+	SELECT r.*,u.id,u.userName,u.avatar FROM reply r,user u where r.uid =u.id and r.pid=1 ORDER BY r.replyDate;
+	SELECT sr.*,u.id,u.userName,u.avatar FROM reply r,sub_reply sr,user u where sr.rid = r.id and sr.uid =u.id and r.pid=1 ORDER BY sr.replyDate;
+END
+;;
+delimiter ;
+
+-- ----------------------------
+-- Procedure structure for replywhile
+-- ----------------------------
+DROP PROCEDURE IF EXISTS `replywhile`;
+delimiter ;;
+CREATE PROCEDURE `replywhile`(IN pid INT)
+BEGIN
+	DECLARE a INT DEFAULT 0;
+	SELECT r.*,u.id,u.userName,u.avatar FROM reply r,user u where r.uid =u.id and r.pid=1 ORDER BY r.replyDate;
+	WHILE a<3 DO
+			SELECT sr.*,u.id,u.userName,u.avatar FROM sub_reply sr,user u where sr.rid = r.id and sr.uid =u.id and r.pid=1 ORDER BY sr.replyDate;
+			SET a = a+1;
+	END WHILE;
+	
+END
+;;
+delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;
