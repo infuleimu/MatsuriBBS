@@ -17,4 +17,8 @@ public interface PostMapper {
     Post selectByPostId(Integer id);
 
     void insertFun(Post post);
+
+    void updateFun(Integer id);
+
+    void deleteFun(Integer id);
 }

@@ -6,11 +6,13 @@ package com.cn.matsuribbs.result;
  */
 public class Result {
     private int code;    //响应状态码
+    private boolean error;
     private String message;    //响应提示信息
     private Object data;    //响应结果对象
 
-    Result(int code, String message, Object data) {
+    Result(int code, boolean error, String message, Object data) {
         this.code = code;
+        this.error = error;
         this.message = message;
         this.data = data;
     }
@@ -23,19 +25,27 @@ public class Result {
         this.code = code;
     }
 
+    public boolean isError() {
+        return error;
+    }
+
+    public void setError(boolean error) {
+        this.error = error;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     public Object getData() {
         return data;
     }
 
     public void setData(Object data) {
         this.data = data;
-    }
-
-    public String getmessage() {
-        return message;
-    }
-
-    public void setmessage(String message) {
-        this.message = message;
     }
 }

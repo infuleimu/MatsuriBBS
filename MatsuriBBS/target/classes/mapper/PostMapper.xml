@@ -66,8 +66,12 @@
 			values(#{sid},#{uid},#{title},#{content},#{postDate},#{type},#{replyNum},#{viewNum},#{likeNum})
 		</insert>
 
-		<!--<delete id="deleteFun" parameterType="int">-->
-			<!--delete from tbl_customer where customerId=#{id}-->
-		<!--</delete>-->
+        <update id="updateFun" parameterType="int">
+            update post set type=1 where id=#{id}
+        </update>
+
+		<delete id="deleteFun" parameterType="int">
+			delete from post where id=#{id}
+		</delete>
 
     </mapper>

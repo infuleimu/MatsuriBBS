@@ -18,13 +18,7 @@ public class PostBiz {
     @Autowired
     PostMapper postMapper;
 
-    /**
-     *  分页查看帖子/对应版块帖子
-     * @param page 当前页
-     * @param limit 每页获取记录数量
-     * @param sid 版块id
-     * @return
-     */
+
     public Result viewPost(Integer page, Integer limit, Integer id) {
         PageBean pageBean = new PageBean(page, limit , id);
         int total = postMapper.selectCountByPageFun(pageBean);
@@ -52,6 +46,26 @@ public class PostBiz {
         } catch (Exception e) {
             e.printStackTrace();
             return ResultFactory.buildFailResult("发帖失败");
+        }
+    }
+
+    public Result AddGoodPost(Integer id) {
+        try {
+            postMapper.updateFun(id);
+            return ResultFactory.buildSuccessResult("加精成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("加精失败");
+        }
+    }
+
+    public Result DeletePost(Integer id) {
+        try {
+            postMapper.deleteFun(id);
+            return ResultFactory.buildSuccessResult("删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("删除失败");
         }
     }
 }
