@@ -12,4 +12,10 @@ public interface ReplyMapper {
     List<Reply> selectByPostIDFun(PageBean pageBean);
 
     int selectCountByPageFun(PageBean pageBean);
+
+    Reply selectByIDFun(Integer id);
+
+    void deleteFun(Integer id);
+
+    void insertFun(Reply reply);
 }

@@ -34,13 +34,29 @@
         <select id="selectCountByPageFun" parameterType="PageBean" resultType="int">
             SELECT count(*) FROM reply where pid=#{id}
         </select>
-        <!--<insert id="insertFun" parameterType="tblCustomer">
-			insert into tbl_customer(customerName,password,customerTrueName,customerAddress,sex,customerEmail,customerPhone,customerRegDate)
-			values(#{customerName},#{password},#{customerTrueName},#{customerAddress},#{sex},#{customerEmail},#{customerPhone},#{customerRegDate})
+
+        <resultMap id="ReplyDetailBean" type="reply">
+            <id column="id" property="id" />
+            <result column="content" property="content" />
+            <result column="replyDate" property="replyDate" />
+            <result column="likeNum" property="likeNum" />
+            <association property="author" javaType="User">
+                <id column="id" property="id" />
+                <result column="userName" property="userName" />
+                <result column="avatar" property="avatar" />
+            </association>
+        </resultMap>
+        <select id="selectByIDFun" parameterType="int" resultMap="ReplyDetailBean">
+            SELECT * FROM reply r, user u where r.uid = u.id and r.id=#{id}
+        </select>
+
+        <insert id="insertFun" parameterType="reply">
+			insert into reply(uid,pid,content,replyDate,likeNum)
+			values(#{uid},#{pid},#{content},#{replyDate},#{likeNum})
 		</insert>
 
 		<delete id="deleteFun" parameterType="int">
-			delete from tbl_customer where customerId=#{id}
-		</delete>-->
+			delete from reply where id=#{id}
+		</delete>
 
     </mapper>

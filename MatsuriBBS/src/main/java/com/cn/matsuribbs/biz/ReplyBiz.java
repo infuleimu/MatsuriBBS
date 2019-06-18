@@ -18,7 +18,7 @@ public class ReplyBiz {
     @Autowired
     ReplyMapper replyMapper;
 
-    public Result viewReplyByPostIdFun(Integer id, Integer page, Integer limit){
+    public Result viewReplyByPostId(Integer id, Integer page, Integer limit){
         PageBean pageBean = new PageBean(page, limit , id);
         int total = replyMapper.selectCountByPageFun(pageBean);
         List<Reply> replyList = replyMapper.selectByPostIDFun(pageBean);
@@ -34,4 +34,37 @@ public class ReplyBiz {
         }
     }
 
+    public Result viewReplyById(Integer id) {
+        Reply reply = replyMapper.selectByIDFun(id);
+        if(reply != null){
+            return ResultFactory.buildSuccessResult(reply);
+        } else {
+            return ResultFactory.buildFailResult("获取信息失败");
+        }
+    }
+
+    public Result deleteReplyById(Integer id) {
+        try {
+            Reply reply = replyMapper.selectByIDFun(id);
+            if(reply != null){
+                replyMapper.deleteFun(id);
+                return ResultFactory.buildSuccessResult("删除成功");
+            } else {
+                return ResultFactory.buildFailResult("删除失败,未找到相应回复");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("删除失败");
+        }
+    }
+
+    public Result addReply(Reply reply) {
+        try {
+            replyMapper.insertFun(reply);
+            return ResultFactory.buildSuccessResult("回复成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("回复失败");
+        }
+    }
 }

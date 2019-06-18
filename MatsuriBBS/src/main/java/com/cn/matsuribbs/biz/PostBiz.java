@@ -60,8 +60,13 @@ public class PostBiz {
 
     public Result deletePost(Integer id) {
         try {
-            postMapper.deleteFun(id);
-            return ResultFactory.buildSuccessResult("删除成功");
+            Post post = postMapper.selectByPostId(id);
+            if (post != null){
+                postMapper.deleteFun(id);
+                return ResultFactory.buildSuccessResult("删除成功");
+            } else {
+                return ResultFactory.buildFailResult("删除失败,未找到相应帖子");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResultFactory.buildFailResult("删除失败");
