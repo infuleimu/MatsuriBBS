@@ -21,7 +21,7 @@ public class Token {
             Algorithm algorithm = Algorithm.HMAC256(key);
             Map<String, Object> map = new HashMap<String, Object>();
             Date nowDate = new Date();
-            Date expireDate = getAfterDate(nowDate, 0, 0, 7, 0, 0, 10);    //获取当前时间2小时后的时间
+            //Date expireDate = getAfterDate(nowDate, 0, 0, 7, 0, 0, 10);    //获取当前时间2小时后的时间
             map.put("alg", "HS256");
             map.put("typ", "JWT");
             String token = JWT.create()
@@ -31,7 +31,7 @@ public class Token {
                     //.withNotBefore(new Date())    //定义在什么时间之前，该jwt都是不可用的.
                     .withAudience("APP")    //签名的观众 也可以理解谁接受签名的
                     .withIssuedAt(nowDate)     //生成签名的时间
-                    .withExpiresAt(expireDate)    //签名过期的时间
+                    //.withExpiresAt(expireDate)    //签名过期的时间
                     .sign(algorithm);    //签名 Signature
             return token;
         } catch (JWTCreationException exception) {

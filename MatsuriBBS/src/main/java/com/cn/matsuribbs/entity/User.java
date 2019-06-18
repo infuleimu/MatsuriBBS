@@ -1,5 +1,6 @@
 package com.cn.matsuribbs.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.sql.Timestamp;
@@ -14,6 +15,7 @@ public class User {
     private String avatar;
     private String email;
     private String phone;
+    @JsonIgnore
     private Timestamp regDate = new Timestamp((new java.util.Date()).getTime());
     private char admin = 0;
 

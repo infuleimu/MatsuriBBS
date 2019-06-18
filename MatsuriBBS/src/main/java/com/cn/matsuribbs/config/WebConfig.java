@@ -9,13 +9,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    private String[] path = {"/api/login", "/api/register","/api/post","/api/post/{id}/reply"};
+    //private String[] path = {"/api/login", "/api/register","/api/post","/api/post/{id}/reply"};
+    private String[] InterceptorPath = {"/api/post"};
 
     @Autowired
     TokenInterceptor tokenInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(tokenInterceptor).addPathPatterns("/api/**").excludePathPatterns(path);
+        //registry.addInterceptor(tokenInterceptor).addPathPatterns(InterceptorPath);    //.excludePathPatterns(path)
     }
 }

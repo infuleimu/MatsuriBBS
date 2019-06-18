@@ -13,4 +13,8 @@ public interface PostMapper {
     List<Post> selectByPageFun(PageBean pageBean);
 
     int selectCountByPageFun(PageBean pageBean);
+
+    Post selectByPostId(Integer id);
+
+    void insertFun(Post post);
 }

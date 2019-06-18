@@ -29,25 +29,45 @@
             <result column="type" property="type" />
             <result column="replyNum" property="replyNum" />
             <result column="viewNum" property="viewNum" />
+            <result column="likeNum" property="likeNum" />
             <association property="author" javaType="User">
                 <result column="userName" property="userName" />
             </association>
         </resultMap>
         <select id="selectByPageFun" parameterType="PageBean" resultMap="postBean">
-            SELECT p.*,u.userName,u.regDate FROM post p LEFT JOIN user u ON p.uid = u.id LEFT JOIN reply r ON p.id = r.pid LEFT JOIN sub_reply sr ON r.id = sr.rid GROUP BY p.id,u.id,r.id,sr.id
+            SELECT p.*,u.userName FROM post p LEFT JOIN user u ON p.uid = u.id LEFT JOIN reply r ON p.id = r.pid LEFT JOIN sub_reply sr ON r.id = sr.rid GROUP BY p.id,u.id,r.id,sr.id
             <if test="id != null and id !='' ">
                 HAVING p.sid = "${id}"
             </if>
             order by IFNULL(sr.replyDate,IFNULL(r.replyDate,p.postDate)) desc limit ${offset},${limit}
         </select>
 
-        <!--<insert id="insertFun" parameterType="tblCustomer">
-			insert into tbl_customer(customerName,password,customerTrueName,customerAddress,sex,customerEmail,customerPhone,customerRegDate)
-			values(#{customerName},#{password},#{customerTrueName},#{customerAddress},#{sex},#{customerEmail},#{customerPhone},#{customerRegDate})
+        <resultMap id="postDetailBean" type="post">
+            <id column="id" property="id" />
+            <result column="title" property="title" />
+            <result column="content" property="content" />
+            <result column="postDate" property="postDate" />
+            <result column="type" property="type" />
+            <result column="replyNum" property="replyNum" />
+            <result column="viewNum" property="viewNum" />
+            <result column="likeNum" property="likeNum" />
+            <association property="author" javaType="User">
+                <id column="id" property="id" />
+                <result column="userName" property="userName" />
+                <result column="avatar" property="avatar" />
+            </association>
+        </resultMap>
+        <select id="selectByPostId" parameterType="int" resultMap="postDetailBean">
+            SELECT p.*,u.id,u.userName,u.avatar FROM post p,user u where p.uid=u.id and p.id=#{id}
+        </select>
+
+        <insert id="insertFun" parameterType="post">
+			insert into post(sid,uid,title,content,postDate,type,replyNum,viewNum,likeNum)
+			values(#{sid},#{uid},#{title},#{content},#{postDate},#{type},#{replyNum},#{viewNum},#{likeNum})
 		</insert>
 
-		<delete id="deleteFun" parameterType="int">
-			delete from tbl_customer where customerId=#{id}
-		</delete>-->
+		<!--<delete id="deleteFun" parameterType="int">-->
+			<!--delete from tbl_customer where customerId=#{id}-->
+		<!--</delete>-->
 
     </mapper>

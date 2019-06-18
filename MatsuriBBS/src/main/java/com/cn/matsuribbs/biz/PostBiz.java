@@ -35,4 +35,23 @@ public class PostBiz {
         map.put("list", postList);
         return ResultFactory.buildSuccessResult(map);
     }
+
+    public Result viewPostByPostId(Integer id) {
+        Post post = postMapper.selectByPostId(id);
+        if (post != null){
+            return ResultFactory.buildSuccessResult(post);
+        } else {
+            return ResultFactory.buildFailResult("获取帖子信息出错");
+        }
+    }
+
+    public Result addPost(Post post) {
+        try {
+            postMapper.insertFun(post);
+            return ResultFactory.buildSuccessResult("发帖成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("发帖失败");
+        }
+    }
 }
