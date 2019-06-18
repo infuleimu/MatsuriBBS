@@ -20,12 +20,17 @@ public class UserController {
      * @return
      */
     @GetMapping("api/login")
-    public Result Login(String email, String password){
+    public Result login(String email, String password){
         return userBiz.login(email, password);
     }
 
+    /**
+     * 邮箱注册
+     * @param user 用户信息
+     * @return
+     */
     @PostMapping("api/register")
-    public Result Register(@RequestBody  User user) {
+    public Result register(@RequestBody  User user) {
         return userBiz.register(user);
     }
 }

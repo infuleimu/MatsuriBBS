@@ -17,6 +17,7 @@ public class Post {
     private Integer replyNum = 0;
     private Integer viewNum = 0;
     private Integer likeNum = 0;
+    private char isTop = 0;
 
     private User author;
 
@@ -106,5 +107,13 @@ public class Post {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public char getIsTop() {
+        return isTop;
+    }
+
+    public void setIsTop(char isTop) {
+        this.isTop = isTop;
     }
 }

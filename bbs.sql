@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 18/06/2019 17:31:21
+ Date: 18/06/2019 18:25:14
 */
 
 SET NAMES utf8mb4;
@@ -74,6 +74,7 @@ CREATE TABLE `post`  (
   `replyNum` int(11) NULL DEFAULT NULL,
   `viewNum` int(11) NULL DEFAULT NULL,
   `likeNum` int(11) NULL DEFAULT NULL,
+  `isTop` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sid`(`sid`) USING BTREE,
   INDEX `uid`(`uid`) USING BTREE,
@@ -84,11 +85,11 @@ CREATE TABLE `post`  (
 -- ----------------------------
 -- Records of post
 -- ----------------------------
-INSERT INTO `post` VALUES (1, 1, 1, '嘻嘻哈哈', '喂喂喂', '2019-06-04 00:00:00', '1', 0, 0, 0);
-INSERT INTO `post` VALUES (2, 2, 1, 'test', 'nmsl', '2019-06-11 19:18:39', '1', 0, 0, 0);
-INSERT INTO `post` VALUES (3, 3, 1, '测试', '测试', '2019-06-11 18:56:29', '1', 0, 0, 0);
-INSERT INTO `post` VALUES (4, 1, 1, '测试测试', '测试测试', '2019-06-11 19:24:34', '1', 0, 0, 0);
-INSERT INTO `post` VALUES (5, 1, 1, '发帖测试', '发帖测试', '2019-06-18 07:30:18', '1', 0, 0, 0);
+INSERT INTO `post` VALUES (1, 1, 1, '嘻嘻哈哈', '喂喂喂', '2019-06-04 00:00:00', '0', 0, 0, 0, '0');
+INSERT INTO `post` VALUES (2, 2, 1, 'test', 'nmsl', '2019-06-11 19:18:39', '0', 0, 0, 0, '0');
+INSERT INTO `post` VALUES (3, 3, 1, '测试', '测试', '2019-06-11 18:56:29', '0', 0, 0, 0, '0');
+INSERT INTO `post` VALUES (4, 1, 1, '测试测试', '测试测试', '2019-06-11 19:24:34', '1', 0, 0, 0, '0');
+INSERT INTO `post` VALUES (5, 1, 1, '发帖测试', '发帖测试', '2019-06-18 07:30:18', '2', 0, 0, 0, '1');
 
 -- ----------------------------
 -- Table structure for reply

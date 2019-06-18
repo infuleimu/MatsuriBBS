@@ -28,7 +28,7 @@
             </collection>
         </resultMap>
         <select id="selectByPostIDFun" parameterType="PageBean" resultMap="ReplyBean">
-            SELECT * FROM (SELECT r.*,u.id mid,u.userName muserName,u.avatar mavatar FROM reply r,user u where r.uid =u.id and r.pid=#{id} limit ${offset},${limit}) a LEFT JOIN (SELECT sr.id sub_id,sr.rid sub_rid,sr.content sub_content,sr.replyDate sub_replyDate,sr.likeNum sub_likeNum,u.id sub_uid,u.userName sub_userName,u.avatar sub_avatar FROM reply r LEFT JOIN sub_reply sr ON sr.rid = r.id LEFT JOIN user u ON sr.uid =u.id and r.pid=#{id} LEFT JOIN sub_reply srb on srb.rid = sr.rid and sr.replyDate>srb.replyDate GROUP BY sr.id,u.id HAVING count(srb.id)&lt;3 ORDER BY sr.replyDate) b on a.id=b.sub_rid and pid=#{id} ORDER BY a.replyDate
+            SELECT * FROM (SELECT r.*,u.id mid,u.userName muserName,u.avatar mavatar FROM reply r,user u where r.uid =u.id and r.pid=#{id} ORDER BY r.replyDate limit ${offset},${limit}) a LEFT JOIN (SELECT sr.id sub_id,sr.rid sub_rid,sr.content sub_content,sr.replyDate sub_replyDate,sr.likeNum sub_likeNum,u.id sub_uid,u.userName sub_userName,u.avatar sub_avatar FROM reply r LEFT JOIN sub_reply sr ON sr.rid = r.id LEFT JOIN user u ON sr.uid =u.id and r.pid=#{id} LEFT JOIN sub_reply srb on srb.rid = sr.rid and sr.replyDate>srb.replyDate GROUP BY sr.id,u.id HAVING count(srb.id)&lt;3 ORDER BY sr.replyDate) b on a.id=b.sub_rid and pid=#{id}
         </select>
 
         <select id="selectCountByPageFun" parameterType="PageBean" resultType="int">

@@ -13,15 +13,15 @@ public class PostController {
     PostBiz postBiz;
 
     /**
-     * 按照回复时间>发帖时间 分页查看帖子/对应版块帖子
+     * 按照是否顶置>回复时间>发帖时间 分页查看帖子/对应版块帖子
      * @param page  分页
      * @param limit  每页获取数据数量
-     * @param id  sid所属版块id,为空时显示所有版块帖子
+     * @param sid  所属版块id,为空时显示所有版块帖子
      * @return
      */
     @GetMapping("api/post")
-    public Result ViewPostByPage(Integer page, Integer limit, Integer id) {
-        return postBiz.viewPost(page, limit, id);
+    public Result viewPostByPage(Integer page, Integer limit, Integer sid) {
+        return postBiz.viewPost(page, limit, sid);
     }
 
     /**
@@ -30,7 +30,7 @@ public class PostController {
      * @return
      */
     @GetMapping("api/post/{id}")
-    public Result ViewPost(@PathVariable Integer id){
+    public Result viewPost(@PathVariable Integer id){
         return postBiz.viewPostByPostId(id);
     }
 
@@ -40,7 +40,7 @@ public class PostController {
      * @return
      */
     @PostMapping("api/post")
-    public Result Post(@RequestBody Post post){
+    public Result post(@RequestBody Post post){
         return postBiz.addPost(post);
     }
 
@@ -50,8 +50,8 @@ public class PostController {
      * @return
      */
     @PutMapping("api/post/{id}")
-    public Result AddGoodPost(@PathVariable Integer id){
-        return postBiz.AddGoodPost(id);
+    public Result addGoodPost(@PathVariable Integer id){
+        return postBiz.addGoodPost(id);
     }
 
     /**
@@ -60,7 +60,7 @@ public class PostController {
      * @return
      */
     @DeleteMapping("api/post/{id}")
-    public Result DeletePost(@PathVariable Integer id){
-        return postBiz.DeletePost(id);
+    public Result deletePost(@PathVariable Integer id){
+        return postBiz.deletePost(id);
     }
 }

@@ -18,7 +18,6 @@ public class PostBiz {
     @Autowired
     PostMapper postMapper;
 
-
     public Result viewPost(Integer page, Integer limit, Integer id) {
         PageBean pageBean = new PageBean(page, limit , id);
         int total = postMapper.selectCountByPageFun(pageBean);
@@ -49,7 +48,7 @@ public class PostBiz {
         }
     }
 
-    public Result AddGoodPost(Integer id) {
+    public Result addGoodPost(Integer id) {
         try {
             postMapper.updateFun(id);
             return ResultFactory.buildSuccessResult("加精成功");
@@ -59,7 +58,7 @@ public class PostBiz {
         }
     }
 
-    public Result DeletePost(Integer id) {
+    public Result deletePost(Integer id) {
         try {
             postMapper.deleteFun(id);
             return ResultFactory.buildSuccessResult("删除成功");
