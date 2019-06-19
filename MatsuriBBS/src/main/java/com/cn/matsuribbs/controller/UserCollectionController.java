@@ -3,29 +3,45 @@ package com.cn.matsuribbs.controller;
 import com.cn.matsuribbs.biz.UserCollectionBiz;
 import com.cn.matsuribbs.entity.Post;
 import com.cn.matsuribbs.entity.User;
+import com.cn.matsuribbs.entity.UserCollection;
 import com.cn.matsuribbs.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
+@RestController
 public class UserCollectionController {
 
     @Autowired
     UserCollectionBiz userCollectionBiz;
 
-    @GetMapping("api/addCollection")
-    public Result addCollection(Post post, User user){
-        return userCollectionBiz.addCollection(post,user);
+    /**
+     *  添加收藏(需要验证token)
+     * @param userCollection 收藏信息,内含pid:帖子id、userId:用户id
+     * @return
+     */
+    @PostMapping("api/user_collection")
+    public Result addCollection(@RequestBody UserCollection userCollection){
+        return userCollectionBiz.addCollection(userCollection);
     }
 
-    @DeleteMapping("api/delectCollection")
-    public Result deleteCollection(Post post,User user){
-        return userCollectionBiz.delectCollection(post,user);
+    /**
+     * 删除收藏(验证token)
+     * @param id
+     * @return
+     */
+    @DeleteMapping("api/user_collection/{id}")
+    public Result deleteCollection(@PathVariable Integer id){
+        return userCollectionBiz.deleteCollection(id);
     }
 
-    @GetMapping("api/selectAllCollection")
-    public Result selectAllCollection(){
-        return userCollectionBiz.selectAllCollection();
+    /**
+     * 查看收藏
+     * @param id  用户id
+     * @return
+     */
+    @GetMapping("api/user_collection")
+    public Result viewCollection(Integer page, Integer limit, Integer uid){
+        return userCollectionBiz.viewCollectionByUserId(page,limit,uid);
     }
 
 }

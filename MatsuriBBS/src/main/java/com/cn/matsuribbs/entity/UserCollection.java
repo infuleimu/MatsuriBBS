@@ -1,9 +1,21 @@
 package com.cn.matsuribbs.entity;
 
+import java.sql.Timestamp;
+
 public class UserCollection {
 
+    private Integer id;
     private Integer pid;
     private Integer uid;
+    private Timestamp collectionDate = new Timestamp((new java.util.Date()).getTime());
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Integer getPid() {
         return pid;
@@ -19,5 +31,13 @@ public class UserCollection {
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public Timestamp getCollectionDate() {
+        return collectionDate;
+    }
+
+    public void setCollectionDate(Timestamp collectionDate) {
+        this.collectionDate = collectionDate;
     }
 }

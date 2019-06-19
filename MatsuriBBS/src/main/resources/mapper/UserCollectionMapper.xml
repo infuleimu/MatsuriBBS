@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+    <mapper namespace="com.cn.matsuribbs.mapper.UserCollectionMapper">
+
+        <select id="selectByIdFun" parameterType="int" resultType="userCollection">
+            select * from user_collection where id=#{id}
+        </select>
+
+        <select id="selectCountByUserId" parameterType="int" resultType="int">
+            select count(*) from user_collection where uid=#{uid}
+        </select>
+
+        <resultMap id="postBean" type="post">
+            <id column="id" property="id" />
+            <result column="title" property="title" />
+            <result column="content" property="content" />
+            <association property="author" javaType="User">
+                <id column="id" property="id" />
+                <result column="userName" property="userName" />
+                <result column="avatar" property="avatar" />
+            </association>
+        </resultMap>
+        <select id="selectByUserIdFun" parameterType="pageBean" resultMap="postBean">
+            SELECT p.id,p.title,pu.id,pu.userName,pu.avatar FROM user_collection uc,user u,user pu,post p where u.id = uc.uid and p.id = uc.pid and p.uid = pu.id and uc.uid = #{id} order by uc.collectionDatez limit #{offset},#{limit}
+        </select>
+
+        <insert id="insertFun" parameterType="userCollection">
+			insert into user_collection(pid,uid,collectionDate)
+			values(#{pid},#{uid},#{collectionDate})
+		</insert>
+
+		<delete id="deleteFun" parameterType="int">
+			delete from user_collection where id=#{id}
+		</delete>
+
+    </mapper>

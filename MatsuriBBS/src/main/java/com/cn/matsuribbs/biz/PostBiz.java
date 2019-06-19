@@ -26,7 +26,11 @@ public class PostBiz {
         map.put("total", total);
         map.put("page" , pageBean.getPage());
         map.put("list", postList);
-        return ResultFactory.buildSuccessResult(map);
+        if(postList != null){
+            return ResultFactory.buildSuccessResult(map);
+        } else {
+            return ResultFactory.buildFailResult("获取信息失败");
+        }
     }
 
     public Result viewPostByPostId(Integer id) {
