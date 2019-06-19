@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 18/06/2019 18:25:14
+ Date: 19/06/2019 16:33:49
 */
 
 SET NAMES utf8mb4;
@@ -31,6 +31,22 @@ CREATE TABLE `announcement`  (
   INDEX `uid`(`uid`) USING BTREE,
   CONSTRAINT `announcement_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for follow
+-- ----------------------------
+DROP TABLE IF EXISTS `follow`;
+CREATE TABLE `follow`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `followerId` int(11) NOT NULL,
+  `followDate` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `uid`(`uid`, `followerId`) USING BTREE,
+  INDEX `followerId`(`followerId`) USING BTREE,
+  CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`followerId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for main_section
@@ -80,12 +96,12 @@ CREATE TABLE `post`  (
   INDEX `uid`(`uid`) USING BTREE,
   CONSTRAINT `post_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `sub_section` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `post_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of post
 -- ----------------------------
-INSERT INTO `post` VALUES (1, 1, 1, '嘻嘻哈哈', '喂喂喂', '2019-06-04 00:00:00', '0', 0, 0, 0, '0');
+INSERT INTO `post` VALUES (1, 1, 3, '嘻嘻哈哈', '喂喂喂', '2019-06-04 00:00:00', '0', 0, 0, 0, '0');
 INSERT INTO `post` VALUES (2, 2, 1, 'test', 'nmsl', '2019-06-11 19:18:39', '0', 0, 0, 0, '0');
 INSERT INTO `post` VALUES (3, 3, 1, '测试', '测试', '2019-06-11 18:56:29', '0', 0, 0, 0, '0');
 INSERT INTO `post` VALUES (4, 1, 1, '测试测试', '测试测试', '2019-06-11 19:24:34', '1', 0, 0, 0, '0');
@@ -116,10 +132,9 @@ INSERT INTO `reply` VALUES (1, 2, 1, '傻逼楼主,nmsl', '2019-06-10 16:00:43',
 INSERT INTO `reply` VALUES (2, 1, 1, '你说你妈呢', '2019-06-10 16:02:43', 0);
 INSERT INTO `reply` VALUES (3, 3, 1, '看戏看戏', '2019-06-10 16:19:36', 0);
 INSERT INTO `reply` VALUES (4, 2, 1, 'wcnm', '2019-06-10 20:20:53', 0);
-INSERT INTO `reply` VALUES (5, 3, 1, '灌水测试01', '2019-06-11 16:42:24', 0);
 INSERT INTO `reply` VALUES (6, 3, 1, '灌水测试02', '2019-06-11 16:42:50', 0);
 INSERT INTO `reply` VALUES (7, 3, 1, '灌水测试03', '2019-06-11 16:44:17', 0);
-INSERT INTO `reply` VALUES (8, 3, 1, '灌水测试04', '2019-06-11 16:44:33', 0);
+INSERT INTO `reply` VALUES (10, 1, 1, '回复测试01', '2019-06-18 13:52:35', 0);
 
 -- ----------------------------
 -- Table structure for sub_reply
@@ -145,7 +160,7 @@ CREATE TABLE `sub_reply`  (
 INSERT INTO `sub_reply` VALUES (1, 3, 1, '吃瓜', '2019-06-10 19:47:02', 0);
 INSERT INTO `sub_reply` VALUES (2, 2, 1, 'sb', '2019-06-10 21:04:33', 0);
 INSERT INTO `sub_reply` VALUES (3, 1, 1, '???', '2019-06-10 23:48:54', 0);
-INSERT INTO `sub_reply` VALUES (4, 2, 1, '¿', '2019-06-10 23:49:12', 0);
+INSERT INTO `sub_reply` VALUES (4, 2, 1, '¿', '2019-06-09 23:49:12', 0);
 INSERT INTO `sub_reply` VALUES (5, 3, 2, 'zaima?', '2019-06-11 15:40:26', 0);
 INSERT INTO `sub_reply` VALUES (6, 1, 2, '???什么鬼', '2019-06-11 15:40:50', 0);
 INSERT INTO `sub_reply` VALUES (7, 2, 2, '认真的?', '2019-06-11 16:26:24', 0);
@@ -203,20 +218,20 @@ INSERT INTO `user` VALUES (4, 'yuge', '123456', '\0', NULL, '1660213@qq.com', NU
 -- ----------------------------
 DROP TABLE IF EXISTS `user_collection`;
 CREATE TABLE `user_collection`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `pid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
-  PRIMARY KEY (`pid`, `uid`) USING BTREE,
-  INDEX `uid`(`uid`) USING BTREE,
-  INDEX `pid`(`pid`) USING BTREE,
-  CONSTRAINT `user_collection_ibfk_1` FOREIGN KEY (`pid`) REFERENCES `post` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `user_collection_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  `collectionDate` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `pid&uid`(`pid`, `uid`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_collection
 -- ----------------------------
-INSERT INTO `user_collection` VALUES (1, 1);
-INSERT INTO `user_collection` VALUES (1, 2);
+INSERT INTO `user_collection` VALUES (1, 1, 1, '2019-06-19 11:40:19');
+INSERT INTO `user_collection` VALUES (2, 2, 1, '2019-06-18 11:40:56');
+INSERT INTO `user_collection` VALUES (7, 3, 1, NULL);
 
 -- ----------------------------
 -- Procedure structure for reply

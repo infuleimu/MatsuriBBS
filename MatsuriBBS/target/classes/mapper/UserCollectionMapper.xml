@@ -28,8 +28,8 @@
         </select>
 
         <insert id="insertFun" parameterType="userCollection">
-			insert into user_collection(pid,uid)
-			values(#{pid},#{uid})
+			insert into user_collection(pid,uid,collectionDate)
+			values(#{pid},#{uid},#{collectionDate})
 		</insert>
 
 		<delete id="deleteFun" parameterType="int">

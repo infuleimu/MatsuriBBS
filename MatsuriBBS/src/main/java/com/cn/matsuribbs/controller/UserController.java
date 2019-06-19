@@ -30,7 +30,7 @@ public class UserController {
      * @return
      */
     @PostMapping("api/register")
-    public Result register(@RequestBody  User user) {
+    public Result register(@RequestBody User user) {
         return userBiz.register(user);
     }
 }
