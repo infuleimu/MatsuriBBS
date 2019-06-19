@@ -20,8 +20,8 @@ public class ReplyController {
      * @return
      */
     @GetMapping("api/post/{id}/reply")
-    public Result viewPostReply(@PathVariable Integer id, Integer page, Integer limit){
-        return replyBiz.viewReplyByPostId(id,page,limit);
+    public Result viewPostReply(Integer page, Integer limit, @PathVariable Integer id){
+        return replyBiz.viewReplyByPostId(page,limit,id);
     }
 
     /**
@@ -45,7 +45,7 @@ public class ReplyController {
     }
 
     /**
-     *  删除回复,需由该回复所属用户或管理员删除(需要验证token)
+     *  删除回复,需由回复者或管理员删除(需要验证token)
      * @param id  回复id
      * @return
      */

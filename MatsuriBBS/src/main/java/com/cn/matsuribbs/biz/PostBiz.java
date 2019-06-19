@@ -18,8 +18,8 @@ public class PostBiz {
     @Autowired
     PostMapper postMapper;
 
-    public Result viewPost(Integer page, Integer limit, Integer id) {
-        PageBean pageBean = new PageBean(page, limit , id);
+    public Result viewPost(Integer page, Integer limit, Integer sid) {
+        PageBean pageBean = new PageBean(page, limit , sid);
         int total = postMapper.selectCountByPageFun(pageBean);
         List<Post> postList = postMapper.selectByPageFun(pageBean);
         Map map = new HashMap();

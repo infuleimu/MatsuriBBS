@@ -18,7 +18,7 @@ public class ReplyBiz {
     @Autowired
     ReplyMapper replyMapper;
 
-    public Result viewReplyByPostId(Integer id, Integer page, Integer limit){
+    public Result viewReplyByPostId(Integer page, Integer limit, Integer id){
         PageBean pageBean = new PageBean(page, limit , id);
         int total = replyMapper.selectCountByPageFun(pageBean);
         List<Reply> replyList = replyMapper.selectByPostIDFun(pageBean);

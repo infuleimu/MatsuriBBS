@@ -10,7 +10,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/api/post","/api/post/*","/api/reply","/api/reply/*"}, filterName = "UrlFilter01")
+@WebFilter(urlPatterns = {"/api/post","/api/post/*","/api/reply","/api/reply/*","/api/subreply","/api/subreply/*"}, filterName = "UrlFilter01")
 public class UrlFilter implements Filter {
 
     @Override
