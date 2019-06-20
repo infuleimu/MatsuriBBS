@@ -11,4 +11,11 @@ public interface UserMapper {
 
     User selectByEmail(String email);
 
+    void updateInfoFun(User user);
+
+    void updatePhoneFun(User user);
+
+    void updatePasswordFun(User user);
+
+    User selectByID(Integer id);
 }

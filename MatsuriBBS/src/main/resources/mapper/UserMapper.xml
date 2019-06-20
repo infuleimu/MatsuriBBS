@@ -17,8 +17,24 @@
 			insert into user(userName,password,sex,avatar,email,phone,regDate,admin)
 			values(#{userName},#{password},#{sex},#{avatar},#{email},#{phone},#{regDate},#{admin})
 		</insert>
-		<!--<update id="updateFun" parameterType="tblCustomer">-->
-			<!--update tbl_customer set customerName=#{customerName},password=#{password},customerTrueName=#{customerTrueName},-->
-			<!--sex=#{sex},customerEmail=#{customerEmail},customerPhone=#{customerPhone} where customerID=#{customerID};-->
-		<!--</update>-->
+
+		<update id="updateInfoFun" parameterType="user">
+			update user set userName=#{userName},sex=#{sex}
+            <if test="avatar !=null and  avatar != '' ">
+                ,avatar=#{avatar}
+            </if>
+			where id=#{id};
+		</update>
+
+        <update id="updatePhoneFun" parameterType="user">
+            update user set phone=#{phone} where id=#{id};
+        </update>
+
+        <select id="selectByID" parameterType="int" resultType="user">
+            select * from user where id=#{id}
+        </select>
+
+        <update id="updatePasswordFun" parameterType="user">
+            update user set password=#{password} where id=#{id};
+        </update>
     </mapper>

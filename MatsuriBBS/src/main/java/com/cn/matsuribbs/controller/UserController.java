@@ -33,4 +33,44 @@ public class UserController {
     public Result register(@RequestBody User user) {
         return userBiz.register(user);
     }
+
+    /**
+     * 修改个人信息(需要验证token)
+     * @param user  用户信息
+     * @return
+     */
+    @PutMapping("api/user/info")
+    public Result modifyUserInfo(@RequestBody User user){
+        return userBiz.modifyUserInfo(user);
+    }
+
+    /**
+     * 修改手机号(需要验证token)
+     * @param user 用户信息
+     * @return
+     */
+    @PutMapping("api/user/phone")
+    public Result modifyUserPhone(@RequestBody User user){
+        return userBiz.modifyUserPhone(user);
+    }
+
+    /**
+     * 修改密码前,验证旧密码
+     * @param user
+     * @return
+     */
+    @GetMapping("api/user/password")
+    public Result beforeModifyPassword(Integer id, String password){
+        return userBiz.checkOldPassword(id,password);
+    }
+
+    /**
+     * 修改密码(需要验证token)
+     * @param user 用户信息
+     * @return
+     */
+    @PutMapping("api/user/password")
+    public Result modifyUserPassword(@RequestBody User user){
+        return userBiz.modifyUserPassword(user);
+    }
 }

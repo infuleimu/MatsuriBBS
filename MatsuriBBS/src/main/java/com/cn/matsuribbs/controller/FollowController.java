@@ -23,7 +23,7 @@ public class FollowController {
     }
 
     /**
-     * 取消关注
+     * 取消关注(需要验证token)
      * @param id  关注主键ID
      * @return
      */

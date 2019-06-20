@@ -59,4 +59,43 @@ public class UserBiz {
             return ResultFactory.buildFailResult("注册失败,请检查您输入的信息");
         }
     }
+
+    public Result modifyUserInfo(User user) {
+        try {
+            userMapper.updateInfoFun(user);
+            return ResultFactory.buildSuccessResult("修改个人信息成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("修改个人信息失败");
+        }
+    }
+
+    public Result modifyUserPhone(User user) {
+        try {
+            userMapper.updatePhoneFun(user);
+            return ResultFactory.buildSuccessResult("修改手机号成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("修改手机号失败");
+        }
+    }
+
+    public Result modifyUserPassword(User user) {
+        try {
+            userMapper.updatePasswordFun(user);
+            return ResultFactory.buildSuccessResult("修改密码成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultFactory.buildFailResult("修改密码失败");
+        }
+    }
+
+    public Result checkOldPassword(Integer id, String password) {
+        User checkUser = userMapper.selectByID(id);
+        if(checkUser != null && checkUser.getPassword().equals(password)){
+            return ResultFactory.buildSuccessResult("验证旧密码成功");
+        } else {
+            return ResultFactory.buildSuccessResult("验证旧密码失败");
+        }
+    }
 }

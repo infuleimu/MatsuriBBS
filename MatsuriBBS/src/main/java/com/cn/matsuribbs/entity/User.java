@@ -5,19 +5,19 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.sql.Timestamp;
 
-@JsonSerialize(include=JsonSerialize.Inclusion.NON_DEFAULT)
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class User {
 
     private Integer id;
     private String userName;
     private String password;
-    private char sex;
+    private String sex;
     private String avatar;
     private String email;
     private String phone;
     @JsonIgnore
     private Timestamp regDate = new Timestamp((new java.util.Date()).getTime());
-    private char admin = 0;
+    private Integer admin = 0;
 
     public Integer getId() {
         return id;
@@ -43,11 +43,11 @@ public class User {
         this.password = password;
     }
 
-    public char getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(char sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -83,11 +83,11 @@ public class User {
         this.regDate = regDate;
     }
 
-    public char getAdmin() {
+    public Integer getAdmin() {
         return admin;
     }
 
-    public void setAdmin(char admin) {
+    public void setAdmin(Integer admin) {
         this.admin = admin;
     }
 }

@@ -13,11 +13,11 @@ public class Post {
     private String title;
     private String content;
     private Timestamp postDate = new Timestamp((new java.util.Date()).getTime());
-    private char type;
+    private Integer type;
     private Integer replyNum = 0;
     private Integer viewNum = 0;
     private Integer likeNum = 0;
-    private char isTop = 0;
+    private Integer isTop = 0;
 
     private User author;
 
@@ -69,11 +69,11 @@ public class Post {
         this.postDate = postDate;
     }
 
-    public char getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(char type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -101,19 +101,19 @@ public class Post {
         this.likeNum = likeNum;
     }
 
+    public Integer getIsTop() {
+        return isTop;
+    }
+
+    public void setIsTop(Integer isTop) {
+        this.isTop = isTop;
+    }
+
     public User getAuthor() {
         return author;
     }
 
     public void setAuthor(User author) {
         this.author = author;
-    }
-
-    public char getIsTop() {
-        return isTop;
-    }
-
-    public void setIsTop(char isTop) {
-        this.isTop = isTop;
     }
 }
