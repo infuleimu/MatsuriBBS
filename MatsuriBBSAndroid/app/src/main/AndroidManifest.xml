@@ -16,6 +16,8 @@
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".login.Register" />
         <activity android:name=".login.Login" />
+        <activity android:name=".my.ModifyPhoneActivity"></activity>
+        <activity android:name=".my.ModifyAccountActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
