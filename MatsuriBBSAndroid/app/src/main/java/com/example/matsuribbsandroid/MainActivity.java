@@ -1,18 +1,16 @@
 package com.example.matsuribbsandroid;
 
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -24,10 +22,12 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.matsuribbsandroid.fragment.ForumFragment;
 import com.example.matsuribbsandroid.fragment.HomeFragment;
 import com.example.matsuribbsandroid.fragment.MessageFragment;
-import com.example.matsuribbsandroid.fragment.MyFragment;
+import com.example.matsuribbsandroid.immersive.StatusBarUtil;
+import com.example.matsuribbsandroid.my.MyActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
 import com.google.android.material.navigation.NavigationView;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,10 +37,37 @@ public class MainActivity extends AppCompatActivity
     private EditText search;
     private DrawerLayout drawer;
     private ImageView head_portrait;
+    private XCRoundImageView head_portrait2;
+    private NavigationView nav_view;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        StatusBarUtil.setRootViewFitsSystemWindows(this,true);
+        //设置状态栏透明
+        StatusBarUtil.setTranslucentStatus(this);
+        if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
+            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+            //这样半透明+白=灰, 状态栏的文字能看得清
+            StatusBarUtil.setStatusBarColor(this,0x55000000);
+        }
+
+        //获取head控件id
+        nav_view = findViewById(R.id.nav_view);
+        View head = nav_view.getHeaderView(0);
+        head_portrait2 = head.findViewById(R.id.head_portrait2);
+        head_portrait2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"asdsadsa",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, MyActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         /*toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -56,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         //实例化ToolBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        FragmentManager fm = getSupportFragmentManager();
+        /*FragmentManager fm = getSupportFragmentManager();
         //导航图标
         toolbar.setNavigationIcon(R.drawable.caidan);
         //为导航  加一个监听
@@ -65,7 +92,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 drawer.openDrawer(Gravity.LEFT);//打开抽屉
             }
-        });
+        });*/
 
 
         //ToolBar里的内容
@@ -78,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         search = findViewById(R.id.search);
         search.setFocusableInTouchMode(false);
 
-        head_portrait = findViewById(R.id.head_portrait);
+        head_portrait = findViewById(R.id.head_portrait1);
         head_portrait.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +129,7 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
 
     //设置ToolBar上ImageView打开抽屉的方法
     private void toggle() {
@@ -147,11 +175,6 @@ public class MainActivity extends AppCompatActivity
                     toolbar_title.setText("论坛");
                     toolbar_search.setVisibility(View.GONE);
                     return true;
-                case R.id.navigation_my:
-                    replaceFragment(new MyFragment());
-                    toolbar_title.setText("我的");
-                    toolbar_search.setVisibility(View.GONE);
-                    return true;
             }
             return false;
         }
@@ -178,6 +201,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+            Toast.makeText(MainActivity.this,"asdsadsa",Toast.LENGTH_SHORT).show();
 
         } else if (id == R.id.nav_slideshow) {
 

@@ -14,7 +14,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="#fff"
             style="@style/mToolbarStyle">
 
             <TextView
@@ -26,7 +26,7 @@
 
 
             <com.example.matsuribbsandroid.XCRoundImageView
-                android:id="@+id/head_portrait"
+                android:id="@+id/head_portrait1"
                 android:scaleType="centerCrop"
                 android:layout_marginLeft="10dp"
                 android:layout_width="32dp"
@@ -47,6 +47,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="0dp"
                     android:background="@drawable/radius"
+                    android:paddingLeft="10dp"
                     android:cursorVisible="false"
                     android:drawableLeft="@drawable/ic_search_black_24dp"
                     android:textSize="12dp" />

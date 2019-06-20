@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Base">
-        <activity android:name=".login.FinishRegister"></activity>
-        <activity android:name=".login.Verification"
-            android:windowSoftInputMode="stateVisible|adjustResize"/>
+        <activity android:name=".my.MyActivity"></activity>
+        <activity android:name=".login.FinishRegister" />
+        <activity
+            android:name=".login.Verification"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".login.Register" />
         <activity android:name=".login.Login" />
         <activity

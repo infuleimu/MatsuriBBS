@@ -11,5 +11,5 @@
         android:color="#FFFAFA" />
 
     <!-- 背景色 -->
-    <solid android:color="#FFFAFA"></solid>
+    <solid android:color="#EAEAEA"></solid>
 </shape>
