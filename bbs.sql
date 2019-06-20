@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 19/06/2019 16:33:49
+ Date: 20/06/2019 16:19:23
 */
 
 SET NAMES utf8mb4;
@@ -46,7 +46,7 @@ CREATE TABLE `follow`  (
   INDEX `followerId`(`followerId`) USING BTREE,
   CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`followerId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for main_section
@@ -56,7 +56,7 @@ CREATE TABLE `main_section`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of main_section
@@ -71,9 +71,9 @@ CREATE TABLE `message`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `receive_uid` int(11) NOT NULL,
   `rid` int(11) NOT NULL,
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `status` int(1) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for post
@@ -86,11 +86,11 @@ CREATE TABLE `post`  (
   `title` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `content` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `postDate` datetime(0) NULL DEFAULT NULL,
-  `type` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `type` int(1) NOT NULL,
   `replyNum` int(11) NULL DEFAULT NULL,
   `viewNum` int(11) NULL DEFAULT NULL,
   `likeNum` int(11) NULL DEFAULT NULL,
-  `isTop` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `isTop` int(1) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sid`(`sid`) USING BTREE,
   INDEX `uid`(`uid`) USING BTREE,
@@ -101,11 +101,11 @@ CREATE TABLE `post`  (
 -- ----------------------------
 -- Records of post
 -- ----------------------------
-INSERT INTO `post` VALUES (1, 1, 3, '嘻嘻哈哈', '喂喂喂', '2019-06-04 00:00:00', '0', 0, 0, 0, '0');
-INSERT INTO `post` VALUES (2, 2, 1, 'test', 'nmsl', '2019-06-11 19:18:39', '0', 0, 0, 0, '0');
-INSERT INTO `post` VALUES (3, 3, 1, '测试', '测试', '2019-06-11 18:56:29', '0', 0, 0, 0, '0');
-INSERT INTO `post` VALUES (4, 1, 1, '测试测试', '测试测试', '2019-06-11 19:24:34', '1', 0, 0, 0, '0');
-INSERT INTO `post` VALUES (5, 1, 1, '发帖测试', '发帖测试', '2019-06-18 07:30:18', '2', 0, 0, 0, '1');
+INSERT INTO `post` VALUES (1, 1, 3, '嘻嘻哈哈', '喂喂喂', '2019-06-04 00:00:00', 0, 0, 0, 0, 0);
+INSERT INTO `post` VALUES (2, 2, 1, 'test', 'nmsl', '2019-06-11 19:18:39', 0, 0, 0, 0, 0);
+INSERT INTO `post` VALUES (3, 3, 1, '测试', '测试', '2019-06-11 18:56:29', 0, 0, 0, 0, 0);
+INSERT INTO `post` VALUES (4, 1, 1, '测试测试', '测试测试', '2019-06-11 19:24:34', 1, 0, 0, 0, 0);
+INSERT INTO `post` VALUES (5, 1, 1, '发帖测试', '发帖测试', '2019-06-18 07:30:18', 2, 0, 0, 0, 1);
 
 -- ----------------------------
 -- Table structure for reply
@@ -123,7 +123,7 @@ CREATE TABLE `reply`  (
   INDEX `pid`(`pid`) USING BTREE,
   CONSTRAINT `reply_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `reply_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of reply
@@ -152,7 +152,7 @@ CREATE TABLE `sub_reply`  (
   INDEX `rid`(`rid`) USING BTREE,
   CONSTRAINT `sub_reply_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `sub_reply_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `reply` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sub_reply
@@ -177,7 +177,7 @@ CREATE TABLE `sub_section`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `mid`(`mid`) USING BTREE,
   CONSTRAINT `sub_section_ibfk_1` FOREIGN KEY (`mid`) REFERENCES `main_section` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sub_section
@@ -194,7 +194,7 @@ CREATE TABLE `user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userName` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `password` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `sex` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `sex` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `email` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -208,10 +208,10 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', '123456', '0', NULL, '100000@qq.com', '18078060977', '2019-06-04 16:42:53', '1');
-INSERT INTO `user` VALUES (2, '1702040031', '123456', '1', NULL, '1200000@qq.com', '18078060978', '2019-06-04 16:54:37', '0');
-INSERT INTO `user` VALUES (3, '迪克', '123456', '1', NULL, '100124@qq.com', '18078060979', '2019-06-10 16:20:37', '1');
-INSERT INTO `user` VALUES (4, 'yuge', '123456', '\0', NULL, '1660213@qq.com', NULL, '2019-06-12 09:17:41', '\0');
+INSERT INTO `user` VALUES (1, 'admin', '123456', '女', NULL, '100000@qq.com', '18078060977', '2019-06-04 16:42:53', '1');
+INSERT INTO `user` VALUES (2, '1702040031', '123456', '男', NULL, '1200000@qq.com', '18078060978', '2019-06-04 16:54:37', '0');
+INSERT INTO `user` VALUES (3, '迪克', '123456', '男', NULL, '100124@qq.com', '18078060979', '2019-06-10 16:20:37', '1');
+INSERT INTO `user` VALUES (4, 'yuge', '123456', '男', NULL, '1660213@qq.com', NULL, '2019-06-12 09:17:41', '\0');
 
 -- ----------------------------
 -- Table structure for user_collection
@@ -224,7 +224,7 @@ CREATE TABLE `user_collection`  (
   `collectionDate` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `pid&uid`(`pid`, `uid`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_collection
