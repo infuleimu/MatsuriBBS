@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.example.matsuribbsandroid.R;
 
-public class SafetyActivity extends AppCompatActivity {
+public class ModifyPhoneActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_safety);
+        setContentView(R.layout.activity_modify_phone);
     }
 }
