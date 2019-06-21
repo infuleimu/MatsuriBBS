@@ -6,6 +6,9 @@ import com.cn.matsuribbs.result.Result;
 import org.omg.PortableInterceptor.INACTIVE;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class UserController {
@@ -40,8 +43,8 @@ public class UserController {
      * @return
      */
     @PutMapping("api/user/info")
-    public Result modifyUserInfo(@RequestBody User user){
-        return userBiz.modifyUserInfo(user);
+    public Result modifyUserInfo(@RequestBody User user, @RequestParam("avatar") MultipartFile avatar, HttpServletRequest req){
+        return userBiz.modifyUserInfo(user,avatar,req);
     }
 
     /**

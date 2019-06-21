@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 20/06/2019 16:19:23
+ Date: 21/06/2019 21:31:23
 */
 
 SET NAMES utf8mb4;
@@ -94,7 +94,7 @@ CREATE TABLE `post`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `sid`(`sid`) USING BTREE,
   INDEX `uid`(`uid`) USING BTREE,
-  CONSTRAINT `post_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `sub_section` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `post_ibfk_1` FOREIGN KEY (`sid`) REFERENCES `sub_section` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
   CONSTRAINT `post_ibfk_2` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -199,7 +199,7 @@ CREATE TABLE `user`  (
   `email` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `regDate` datetime(0) NULL DEFAULT NULL,
-  `admin` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `admin` int(1) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `email`(`email`) USING BTREE,
   UNIQUE INDEX `phone`(`phone`) USING BTREE
@@ -208,10 +208,10 @@ CREATE TABLE `user`  (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (1, 'admin', '123456', '女', NULL, '100000@qq.com', '18078060977', '2019-06-04 16:42:53', '1');
-INSERT INTO `user` VALUES (2, '1702040031', '123456', '男', NULL, '1200000@qq.com', '18078060978', '2019-06-04 16:54:37', '0');
-INSERT INTO `user` VALUES (3, '迪克', '123456', '男', NULL, '100124@qq.com', '18078060979', '2019-06-10 16:20:37', '1');
-INSERT INTO `user` VALUES (4, 'yuge', '123456', '男', NULL, '1660213@qq.com', NULL, '2019-06-12 09:17:41', '\0');
+INSERT INTO `user` VALUES (1, 'admin', '123456', '女', NULL, '100000@qq.com', '18078060977', '2019-06-04 16:42:53', 1);
+INSERT INTO `user` VALUES (2, '1702040031', '123456', '男', NULL, '1200000@qq.com', '18078060978', '2019-06-04 16:54:37', 0);
+INSERT INTO `user` VALUES (3, '迪克', '123456', '男', NULL, '100124@qq.com', '18078060979', '2019-06-10 16:20:37', 1);
+INSERT INTO `user` VALUES (4, 'biaoge', '123456', '男', NULL, '1660213@qq.com', '18078060980', '2019-06-12 09:17:41', 1);
 
 -- ----------------------------
 -- Table structure for user_collection
@@ -223,7 +223,10 @@ CREATE TABLE `user_collection`  (
   `uid` int(11) NOT NULL,
   `collectionDate` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `pid&uid`(`pid`, `uid`) USING BTREE
+  UNIQUE INDEX `pid&uid`(`pid`, `uid`) USING BTREE,
+  INDEX `uid`(`uid`) USING BTREE,
+  CONSTRAINT `user_collection_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `user_collection_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
