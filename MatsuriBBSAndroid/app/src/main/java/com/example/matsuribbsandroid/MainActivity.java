@@ -23,6 +23,7 @@ import com.example.matsuribbsandroid.fragment.ForumFragment;
 import com.example.matsuribbsandroid.fragment.HomeFragment;
 import com.example.matsuribbsandroid.fragment.MessageFragment;
 import com.example.matsuribbsandroid.immersive.StatusBarUtil;
+import com.example.matsuribbsandroid.login.Login;
 import com.example.matsuribbsandroid.my.MyActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.LabelVisibilityMode;
@@ -63,7 +64,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this,"asdsadsa",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, MyActivity.class);
+                Intent intent = new Intent(MainActivity.this, Login.class);
                 startActivity(intent);
             }
         });
@@ -197,19 +198,17 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        if (id == R.id.nav_home) {
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_safe) {
             Toast.makeText(MainActivity.this,"asdsadsa",Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, Login.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_auxiliary) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_edition) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        }else if (id == R.id.nav_collection){
 
         }
 

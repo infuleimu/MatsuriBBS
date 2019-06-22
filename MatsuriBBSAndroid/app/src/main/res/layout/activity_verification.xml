@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.Verification">
+    tools:context=".register.Verification">
 
     <LinearLayout
         android:id="@+id/linearLayout4"
@@ -48,7 +48,7 @@
                 android:textSize="14dp"
                 android:text="3157182850@qq.com"/>
         </LinearLayout>
-        <com.example.matsuribbsandroid.login.CodeView
+        <com.example.matsuribbsandroid.register.CodeView
             android:id="@+id/verify_code_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginTop="40dp"
             tools:ignore="MissingConstraints">
-        </com.example.matsuribbsandroid.login.CodeView>
+        </com.example.matsuribbsandroid.register.CodeView>
     </LinearLayout>
 
     <LinearLayout

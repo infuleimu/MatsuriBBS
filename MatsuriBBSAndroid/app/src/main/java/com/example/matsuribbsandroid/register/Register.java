@@ -1,4 +1,4 @@
-package com.example.matsuribbsandroid.login;
+package com.example.matsuribbsandroid.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 

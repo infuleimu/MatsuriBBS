@@ -1,4 +1,4 @@
-package com.example.matsuribbsandroid.login;
+package com.example.matsuribbsandroid.register;
 
 import android.content.Context;
 import android.util.AttributeSet;

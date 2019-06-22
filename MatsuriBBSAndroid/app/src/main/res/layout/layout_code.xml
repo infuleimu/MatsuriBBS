@@ -133,7 +133,7 @@
 
     </LinearLayout>
 
-    <com.example.matsuribbsandroid.login.MyEditText
+    <com.example.matsuribbsandroid.register.MyEditText
         android:id="@+id/edit_text_view"
         android:layout_width="match_parent"
         android:layout_height="48dp"
