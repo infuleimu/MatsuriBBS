@@ -5,11 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="18dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
     android:paddingRight="18dp"
-    android:background="@drawable/textbottomlines">
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp"
+    android:background="#fff">
 
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:textColor="#000"
+        android:layout_height="wrap_content"
+        android:text="2018-6-1" />
 
     <TextView
         android:id="@+id/textView2"
@@ -17,17 +24,8 @@
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:text="摄影日记：像你一样的人"
-        android:textStyle="bold"
-        android:textSize="20dp"/>
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:lineSpacingMultiplier="1.2"
-        android:maxLines="2"
         android:layout_marginTop="14dp"
-        android:text="遇到一个可爱的小姐姐，觉得她长得很清纯甜美，所以选择在一个环境比较日系的餐厅拍照。"
+        android:textColor="#000"
         android:textSize="16dp"/>
 
     <LinearLayout
@@ -40,13 +38,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-
             android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:text="小岛立夏"
+
+                android:text="流放之路"
                 android:textSize="14dp" />
+
         </LinearLayout>
 
         <LinearLayout

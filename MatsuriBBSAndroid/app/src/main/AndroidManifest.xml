@@ -11,12 +11,13 @@
         android:theme="@style/AppTheme.Base">
         <activity android:name=".my.MyActivity"></activity>
         <activity android:name=".register.FinishRegister" />
+        <activity android:name=".my.UserInformationActivity"></activity>
         <activity
             android:name=".register.Verification"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".register.Register" />
         <activity android:name=".login.Login" />
-        <activity android:name=".my.ModifyPhoneActivity"></activity>
+        <activity android:name=".my.ModifyPhoneActivity" />
         <activity android:name=".my.ModifyAccountActivity" />
         <activity
             android:name=".MainActivity"
