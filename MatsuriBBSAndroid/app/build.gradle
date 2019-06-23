@@ -16,13 +16,63 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+
+        targetCompatibility JavaVersion.VERSION_1_8
+
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'
+
+    
+
+    implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'//轮播图的依赖
+
+    implementation 'com.makeramen:roundedimageview:2.2.1'//圆形头像依赖
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
+
+    implementation 'com.google.android.material:material:1.0.0-rc01'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'    //自动将数据转换成实体类,或将实体类转换成json
+    implementation 'com.google.code.gson:gson:2.6.2'    //gson实体解析库
+
+    implementation 'com.squareup.picasso:picasso:2.71828'    //picasso:图片异步加载框架
+
+    //Retrofit依赖包
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    //自动将服务器返回的数据转换成实体类；我们传给retrofit的实体类，自动转换成json
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.google.code.gson:gson:2.6.2'
+
+    //RxJava依赖包
+    implementation'io.reactivex.rxjava2:rxjava:2.2.7'
+    //RxJavaAndroid依赖包
+    implementation'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //rxjava+retrofit 用到的一个依赖包，使得借口调用的数据，以Rxjava的形式提供给我们
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+
+    implementation 'org.greenrobot:eventbus:3.1.1'
+
+    implementation 'com.jakewharton:butterknife:10.1.0'
+
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+
+    implementation 'com.youth.banner:banner:1.4.10'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

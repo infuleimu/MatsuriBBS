@@ -1,0 +1,7 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <item name="home" type="drawable">@drawable/home</item>
+    <item name="collection" type="drawable">@drawable/home</item>
+    <item name="safe" type="drawable">@drawable/pinglun</item>
+    <item name="uxiliary" type="drawable">@drawable/chakanshu</item>
+    <item name="edition" type="drawable">@drawable/forum</item>
+</resources>
