@@ -18,7 +18,8 @@ public class LoginResponse {
      * <p>
      * <p>
      * <p>
-     * data : {"user":{"id":1,"userName":"admin","sex":"女","email":"100000@qq.com","phone":"18078060977","admin":1},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJBUFAiLCJpc3MiOiJEaWNrRHJhZ29uIiwidXNlck5hbWUiOiJhZG1pbiIsImlhdCI6MTU2MTEyMTA0MH0.ZcMwBfZErmMNyqCB22qFk7ZoQqc2eGN-3PXAvsaYzpA"}
+     * data : {"user":{"id":1,"userName":"admin","sex":"女","email":"100000@qq.com","phone":"18078060977","admin":1},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJBUFAiLCJpc3MiOiJEaWNrRHJhZ29uIiwidXNlck5hbWUiOiJhZG1pbiIsImlhdCI6MTU2MTEyMTA0MH0.ZcMwBfZErmMNyqCB"}
+     *
      */
 
 

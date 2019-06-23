@@ -1,4 +1,4 @@
-package com.example.matsuribbsandroid.fragment;
+package com.example.matsuribbsandroid.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +19,7 @@ import com.example.matsuribbsandroid.GlideImageLoader;
 import com.example.matsuribbsandroid.R;
 import com.google.android.material.navigation.NavigationView;
 import com.youth.banner.Banner;
+
 
 import java.util.ArrayList;
 import java.util.List;

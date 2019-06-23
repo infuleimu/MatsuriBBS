@@ -22,7 +22,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.matsuribbsandroid.fragment.ForumFragment;
-import com.example.matsuribbsandroid.fragment.HomeFragment;
+import com.example.matsuribbsandroid.home.HomeFragment;
 import com.example.matsuribbsandroid.fragment.MessageFragment;
 import com.example.matsuribbsandroid.immersive.StatusBarUtil;
 import com.example.matsuribbsandroid.login.LoginActivity;
@@ -72,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-
         //实例化ToolBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -88,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 toggle();
             }
         });
-
 
         //抽屉item
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -108,9 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //检查登录
     private void checkLogin() {
         user_name = head.findViewById(R.id.user_name);
-        user_name.setText(null);
         user_email = head.findViewById(R.id.user_email);
-        user_email.setText(null);
 
         StuDBHelper dbHelper = new StuDBHelper(MainActivity.this, "user_db", null, 1);
         //得到一个可读的数据库
@@ -118,9 +114,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Cursor cursor = db.query("user_table", new String[]{"id","userName","email","phone","sex"}, null, null, null, null, null);
         Cursor cursor = db.rawQuery("select * from user_table", null);
 
-        while (cursor.moveToNext()) {
-            user_name.setText(cursor.getString(cursor.getColumnIndex("userName")));
-            user_email.setText(cursor.getString(cursor.getColumnIndex("email")));
+        if(cursor.getCount() == 0){
+            LinearLayout userInfo = head.findViewById(R.id.nav_user_info);
+            userInfo.setVisibility(View.GONE);
+        } else {
+            while (cursor.moveToNext()) {
+                user_name.setText(cursor.getString(cursor.getColumnIndex("userName")));
+                user_email.setText(cursor.getString(cursor.getColumnIndex("email")));
+            }
         }
         cursor.close();
         /*head_portrait2.setClickable(false);*/
