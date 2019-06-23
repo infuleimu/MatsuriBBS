@@ -8,17 +8,11 @@
             select * from post
         </select>
 
-        <sql id="post_where">
-            <if test="id != null and id !='' ">
-                and id = "${id}"
-            </if>
-        </sql>
-
         <select id="selectCountByPageFun" parameterType="PageBean" resultType="int">
             SELECT count(*) FROM post
-            <where>
-                <include refid="post_where"></include>
-            </where>
+            <if test="id != null and id !='' ">
+                 where sid = "${id}"
+            </if>
         </select>
 
         <resultMap id="postBean" type="post">
