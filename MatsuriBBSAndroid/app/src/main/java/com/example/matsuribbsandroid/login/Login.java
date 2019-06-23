@@ -1,9 +1,10 @@
 package com.example.matsuribbsandroid.login;
 
+import android.content.ContentValues;
 import android.content.Intent;
-import android.nfc.Tag;
+
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,12 +13,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.matsuribbsandroid.MainActivity;
 import com.example.matsuribbsandroid.R;
-import com.example.matsuribbsandroid.core.UserManager;
 import com.example.matsuribbsandroid.entity.User;
 import com.example.matsuribbsandroid.register.Register;
 import com.example.matsuribbsandroid.service.MatsuriBBSManager;
 import com.example.matsuribbsandroid.service.MatsuriBBSService;
+import com.example.matsuribbsandroid.sqlitedatabase.StuDBHelper;
+
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,9 +60,32 @@ public class Login extends AppCompatActivity {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.body().getData() != null) {
+                    StuDBHelper dbHelper = new StuDBHelper(Login.this,"user_db",null,1);
+                    SQLiteDatabase db =dbHelper.getWritableDatabase();
                     User user = response.body().getData().getUser();
 
-                        Toast.makeText(Login.this, "登录成功！", Toast.LENGTH_SHORT).show();
+                    ContentValues values = new ContentValues();
+                    values.put("uid",user.getId());
+                    values.put("username",user.getUserName());
+                    values.put("email",user.getEmail());
+                    values.put("phone",user.getPhone());
+                    values.put("sex",user.getSex());
+                    values.put("token",response.body().getData().getToken());
+                    //String sql="insert into user_table(id,userName,email,phone,sex) values("+id+",'"+response_email+"','"+response_username+"','"+response_phone+"','"+response_sex+"')";
+                    //db.execSQL(sql);
+                    db.insert("user_table",null,values);
+                    db.close();
+                    /*String response_email = user.getEmail();
+                    String response_username = user.getUserName();
+                    Intent data = new Intent();
+                    data.putExtra("Email",response_email);
+                    data.putExtra("Username", response_username);
+                    setResult(1,data);*/
+                    Intent data = new Intent();
+                    data.putExtra("userId",user.getId());
+                    setResult(1,data);
+                    Toast.makeText(Login.this, "登录成功！", Toast.LENGTH_SHORT).show();
+                    finish();
                 } else {
                     Toast.makeText(Login.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
