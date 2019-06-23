@@ -1,6 +1,8 @@
 package com.example.matsuribbsandroid.fragment;
 
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,70 +20,78 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
 public class ForumFragment extends Fragment {
-    public ForumFragment(){}
-    private TabLayout tabLayout;
-    private ViewPager viewPage;
-    private List<Fragment> frags;
-    private List<String> titles;
-    private Fragment[] f;
+    TabLayout forumTabs;
+
+    ViewPager forumPager;
+    public static final String[] sTitle = new String[]{"我的收藏", "魔兽世界", "网事杂谈", "厂商专区", "手机游戏", "传统游戏", "网络游戏"};
+
+    public ForumFragment() {
+    }
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_forum,container,false);
+        View view = inflater.inflate(R.layout.fragment_forum, container, false);
 
-        viewPage= (ViewPager) view.findViewById(R.id.forum_pager);
-        tabLayout= (TabLayout) view.findViewById(R.id.forum_tabs);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        frags=new ArrayList<>();
-        frags.add(new Fragment1());
-        titles=new ArrayList<>();
-        titles.add("标题1");
-        titles.add("标题2");
-        titles.add("标题3");
-        titles.add("标题4");
-        titles.add("标题5");
-        titles.add("标题6");
-        titles.add("标题7");
-        tabLayout.setupWithViewPager(viewPage);
-        Myadapter adapter=new Myadapter(getChildFragmentManager());
-        viewPage.setAdapter(adapter);
+        forumPager=view.findViewById(R.id.forum_pager);
+        forumTabs=view.findViewById(R.id.forum_tabs);
+
+        setupViewPager(forumPager);//初始化viewpager
 
         return view;
     }
-    //适配器
-    class Myadapter extends FragmentPagerAdapter {
 
-        public Myadapter(FragmentManager fm) {
+    private void setupViewPager(ViewPager viewPager){
+        ForumViewPagerAdapter pagerAdapter=new ForumViewPagerAdapter(getFragmentManager());
+        pagerAdapter.addFragment(new FirstFragment(),sTitle[0]);
+        pagerAdapter.addFragment(new SecondFragment(),sTitle[1]);
+        pagerAdapter.addFragment(new ThirdFragment(),sTitle[2]);
+        pagerAdapter.addFragment(new FourthFragment(),sTitle[3]);
+        pagerAdapter.addFragment(new FifthFragment(),sTitle[4]);
+        pagerAdapter.addFragment(new SixthFragment(),sTitle[5]);
+        viewPager.setAdapter(pagerAdapter);
+        if(forumTabs!=null){
+            forumTabs.addTab(forumTabs.newTab());
+            forumTabs.addTab(forumTabs.newTab());
+            forumTabs.setupWithViewPager(forumPager);
+        }
+    }
+
+    static class ForumViewPagerAdapter extends FragmentPagerAdapter {
+
+        private final List<Fragment> mFragments=new ArrayList<>();//fragment列表
+        private final List<String> mFragmentTitles=new ArrayList<>();//fragment对应标题
+
+        public ForumViewPagerAdapter(FragmentManager fm) {
             super(fm);
+        }
+
+        public void addFragment(Fragment fragment,String title){
+            mFragments.add(fragment);
+            mFragmentTitles.add(title);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return getfragment(position);
+            return mFragments.get(position);
         }
 
         @Override
         public int getCount() {
-            return titles.size();
+            return mFragments.size();
         }
 
+        @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return titles.get(position);
+            return mFragmentTitles.get(position);
         }
     }
-    //动态创建Fragment的方法
-    public Fragment  getfragment(int position){
-        f=new Fragment[10];
-        Fragment fg = f[position];
-        if (fg == null) {
-            fg = Fragment1.getiniturl(position+"");
-            f[position] = fg;
-        }
-        return fg;
-    }
-
 }

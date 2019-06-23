@@ -30,15 +30,14 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'
 
-    
-
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.github.bumptech.glide:glide:3.7.0'//轮播图的依赖
 
     implementation 'com.makeramen:roundedimageview:2.2.1'//圆形头像依赖
 
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'com.google.android.material:material:1.0.0-alpha1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'
-
     implementation 'com.google.android.material:material:1.0.0-rc01'
 
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
@@ -54,11 +53,12 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.6.2'
 
     //RxJava依赖包
-    implementation'io.reactivex.rxjava2:rxjava:2.2.7'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
     //RxJavaAndroid依赖包
-    implementation'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     //rxjava+retrofit 用到的一个依赖包，使得借口调用的数据，以Rxjava的形式提供给我们
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+
 
     implementation 'org.greenrobot:eventbus:3.1.1'
 
