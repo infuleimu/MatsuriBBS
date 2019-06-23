@@ -38,7 +38,6 @@ public class HomeFragment extends Fragment{
         images.add(R.drawable.timg2);
         images.add(R.drawable.timg3);
 
-
         Banner banner = (Banner) view.findViewById(R.id.banner);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
@@ -46,10 +45,6 @@ public class HomeFragment extends Fragment{
         banner.setImages(images);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
-
-
-
-
 
         return view;
     }

@@ -24,34 +24,13 @@
                 android:textSize="18dp"
                 android:layout_gravity="center" />
 
-
             <com.example.matsuribbsandroid.XCRoundImageView
-                android:id="@+id/head_portrait1"
+                android:id="@+id/toolbar_avatar"
                 android:scaleType="centerCrop"
                 android:layout_marginLeft="10dp"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/timg"/>
-
-            <LinearLayout
-                android:id="@+id/toolbar_search"
-                android:layout_width="180dp"
-                android:layout_height="30dp"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="right">
-
-                <EditText
-                    android:id="@+id/search"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="0dp"
-                    android:background="@drawable/radius"
-                    android:paddingLeft="10dp"
-                    android:cursorVisible="false"
-                    android:drawableLeft="@drawable/ic_search_black_24dp"
-                    android:textSize="12dp" />
-            </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
 

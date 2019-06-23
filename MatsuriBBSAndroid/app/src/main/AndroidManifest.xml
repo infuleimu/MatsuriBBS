@@ -16,7 +16,7 @@
             android:name=".register.Verification"
             android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".register.Register" />
-        <activity android:name=".login.Login" />
+        <activity android:name=".login.LoginActivity" />
         <activity android:name=".my.ModifyPhoneActivity" />
         <activity android:name=".my.ModifyAccountActivity" />
         <activity
