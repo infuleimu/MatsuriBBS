@@ -2,6 +2,7 @@ package com.example.matsuribbsandroid.home;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,7 +73,7 @@ public class HomeFragment extends Fragment{
 
     private void loadPost(Callback<HomePostResponse> callback){
         MatsuriBBSService matsuriBBSService = MatsuriBBSManager.createOpenApiService();
-        matsuriBBSService.viewPost(page,null,null);
+        matsuriBBSService.viewPost(page,null,null).enqueue(callback);
     }
 
     @Override
@@ -80,16 +82,19 @@ public class HomeFragment extends Fragment{
         loadPost(new Callback<HomePostResponse>() {
             @Override
             public void onResponse(Call<HomePostResponse> call, Response<HomePostResponse> response) {
-                if(response.body().getCode() == 200 && response.body().isError() && response.body().getData() != null){
+                if(response.body().getCode() == 200 && !response.body().isError() && response.body().getData() != null){
                     postList = response.body().getData().getList();
                     homeAdapter.setData(postList);
+                    Log.e("abc","获取成功");
                 } else {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("abc","获取失败");
                 }
             }
             @Override
             public void onFailure(Call<HomePostResponse> call, Throwable t) {
                 Toast.makeText(getContext(), "网络访问失败", Toast.LENGTH_SHORT).show();
+                Log.e("abc","网络访问失败");
             }
         });
     }
@@ -101,7 +106,9 @@ public class HomeFragment extends Fragment{
             recyclerView.setHasFixedSize(true);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
             recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
             homeAdapter = new HomeAdapter(postList,getContext(),R.layout.post_item);
+            recyclerView.setAdapter(homeAdapter);
         }
     }
 
@@ -131,9 +138,9 @@ public class HomeFragment extends Fragment{
             post_title.setText(post.getTitle());
             post_content.setText(post.getContent());
             post_author.setText(post.getAuthor().getUserName());
-            post_viewNum.setText(post.getViewNum());
-            post_replyNum.setText(post.getReplyNum());
-            post_likeNum.setText(post.getLikeNum());
+            post_viewNum.setText(post.getViewNum().toString());
+            post_replyNum.setText(post.getReplyNum().toString());
+            post_likeNum.setText(post.getLikeNum().toString());
         }
     }
 
