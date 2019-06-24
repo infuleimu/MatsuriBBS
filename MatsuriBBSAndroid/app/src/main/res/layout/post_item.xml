@@ -12,7 +12,7 @@
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/post_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
@@ -21,7 +21,7 @@
         android:textSize="20dp"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/post_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingMultiplier="1.2"
@@ -42,7 +42,9 @@
             android:layout_weight="1"
 
             android:orientation="horizontal">
+
             <TextView
+                android:id="@+id/post_author"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="小岛立夏"
@@ -63,10 +65,11 @@
                 app:srcCompat="@drawable/chakanshu" />
 
             <TextView
+                android:id="@+id/post_viewNum"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="6dp"
-                android:text="1500"/>
+                android:text="1500" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -83,10 +86,11 @@
                 app:srcCompat="@drawable/pinglun" />
 
             <TextView
+                android:id="@+id/post_replyNum"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="6dp"
-                android:text="1500"/>
+                android:text="1500" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -103,10 +107,11 @@
                 app:srcCompat="@drawable/dianzan" />
 
             <TextView
+                android:id="@+id/post_likeNum"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="6dp"
-                android:text="1500"/>
+                android:text="1500" />
         </LinearLayout>
 
     </LinearLayout>
