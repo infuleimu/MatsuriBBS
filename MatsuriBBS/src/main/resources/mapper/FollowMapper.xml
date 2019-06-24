@@ -9,8 +9,30 @@
             select * from follow where id=#{id}
         </select>
 
-        <select id="selectByEmail" parameterType="String" resultType="user">
-            select * from user where email=#{email}
+        <resultMap id="followBean" type="follow">
+            <id column="id" property="id" />
+            <association property="follow" javaType="User">
+                <id column="id" property="id" />
+                <result column="userName" property="userName" />
+                <result column="avatar" property="avatar" />
+                <result column="admin" property="admin" />
+            </association>
+        </resultMap>
+        <select id="selectByFollowerIdFun" parameterType="int" resultMap="followBean">
+            SELECT f.id,u.id,userName,u.avatar,u.admin FROM follow f,user u where f.uid = u.id and f.followerId =#{id} order by f.followDate desc
+        </select>
+
+        <resultMap id="followerBean" type="follow">
+            <id column="id" property="id" />
+            <association property="follower" javaType="User">
+                <id column="id" property="id" />
+                <result column="userName" property="userName" />
+                <result column="avatar" property="avatar" />
+                <result column="admin" property="admin" />
+            </association>
+        </resultMap>
+        <select id="selectByUserIdFun" parameterType="int" resultMap="followerBean">
+            SELECT f.id,u.id,userName,u.avatar,u.admin FROM follow f,user u where f.followerId = u.id and f.uid =#{id} order by f.followDate desc
         </select>
 
         <insert id="insertFun" parameterType="follow">

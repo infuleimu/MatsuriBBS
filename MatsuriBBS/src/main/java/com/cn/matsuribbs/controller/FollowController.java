@@ -31,4 +31,24 @@ public class FollowController {
     public Result unFollow(@PathVariable Integer id){
         return followBiz.unFollowUser(id);
     }
+
+    /**
+     * 查看某用户的关注用户列表
+     * @param id 用户id
+     * @return
+     */
+    @GetMapping("api/user_follow")
+    public Result viewUserFollow(Integer id){
+        return followBiz.viewUserFollow(id);
+    }
+
+    /**
+     * 查看某用户的粉丝(关注者)
+     * @param id 用户id
+     * @return
+     */
+    @GetMapping("api/user_follower")
+    public Result viewUserFollower(Integer id){
+        return followBiz.viewUserFollower(id);
+    }
 }

@@ -7,6 +7,8 @@ import com.cn.matsuribbs.result.ResultFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FollowBiz {
 
@@ -35,6 +37,24 @@ public class FollowBiz {
         } catch (Exception e) {
             e.printStackTrace();
             return ResultFactory.buildFailResult("取消关注失败");
+        }
+    }
+
+    public Result viewUserFollow(Integer id) {
+        List<Follow> userList = followMapper.selectByFollowerIdFun(id);
+        if (userList != null){
+            return ResultFactory.buildSuccessResult(userList);
+        } else {
+            return ResultFactory.buildFailResult("获取信息失败");
+        }
+    }
+
+    public Result viewUserFollower(Integer id) {
+        List<Follow> userList = followMapper.selectByUserIdFun(id);
+        if (userList != null){
+            return ResultFactory.buildSuccessResult(userList);
+        } else {
+            return ResultFactory.buildFailResult("获取信息失败");
         }
     }
 }

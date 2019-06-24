@@ -33,10 +33,11 @@
             <result column="isTop" property="isTop" />
             <association property="author" javaType="User">
                 <result column="userName" property="userName" />
+                <result column="admin" property="admin" />
             </association>
         </resultMap>
         <select id="selectByPageFun" parameterType="PageBean" resultMap="postBean">
-            SELECT p.*,u.userName FROM post p LEFT JOIN user u ON p.uid = u.id LEFT JOIN reply r ON p.id = r.pid LEFT JOIN sub_reply sr ON r.id = sr.rid GROUP BY p.id,u.id,r.id,sr.id
+            SELECT p.*,u.userName,u.admin FROM post p LEFT JOIN user u ON p.uid = u.id LEFT JOIN reply r ON p.id = r.pid LEFT JOIN sub_reply sr ON r.id = sr.rid GROUP BY p.id,u.id,r.id,sr.id
             <if test="id != null and id !='' ">
                 HAVING p.sid = "${id}"
             </if>
