@@ -1,23 +1,19 @@
 package com.example.matsuribbsandroid.home;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,20 +22,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.matsuribbsandroid.GlideImageLoader;
 import com.example.matsuribbsandroid.R;
 import com.example.matsuribbsandroid.entity.Post;
+import com.example.matsuribbsandroid.post.PostActivity;
 import com.example.matsuribbsandroid.service.MatsuriBBSManager;
 import com.example.matsuribbsandroid.service.MatsuriBBSService;
-import com.google.android.material.navigation.NavigationView;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
-import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -161,6 +155,7 @@ public class HomeFragment extends Fragment{
         TextView post_viewNum;
         TextView post_replyNum;
         TextView post_likeNum;
+        ImageView post_author_isAdmin;
 
         public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -180,13 +175,16 @@ public class HomeFragment extends Fragment{
             post_title.setText(post.getTitle());
             post_content.setText(post.getContent());
             post_author.setText(post.getAuthor().getUserName());
+            if(post.getAuthor().getAdmin() != 1){
+                post_author_isAdmin.setVisibility(View.GONE);
+            }
             post_viewNum.setText(post.getViewNum().toString());
             post_replyNum.setText(post.getReplyNum().toString());
             post_likeNum.setText(post.getLikeNum().toString());
         }
     }
 
-    static class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
+    class HomeAdapter extends RecyclerView.Adapter<HomeViewHolder> {
         private List<Post> post;
         private Context context;
 
@@ -209,6 +207,15 @@ public class HomeFragment extends Fragment{
         @Override
         public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
             if (holder == null) return;
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(holder.itemView.getContext(), PostActivity.class);
+                    Integer pid = postList.get(position).getId();
+                    intent.putExtra("pid",pid);
+                    startActivity(intent);
+                }
+            });
             holder.updatePost(post.get(position));
         }
 

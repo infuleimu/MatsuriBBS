@@ -46,6 +46,14 @@
                 android:layout_height="20dp"
                 android:text="小岛立夏"
                 android:textSize="14dp" />
+
+            <ImageView
+                android:id="@+id/post_author_isAdmin"
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                app:srcCompat="@drawable/adminicon" />
         </LinearLayout>
 
         <LinearLayout
