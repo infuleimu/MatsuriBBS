@@ -29,6 +29,9 @@ import com.example.matsuribbsandroid.entity.Post;
 import com.example.matsuribbsandroid.service.MatsuriBBSManager;
 import com.example.matsuribbsandroid.service.MatsuriBBSService;
 import com.google.android.material.navigation.NavigationView;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 
@@ -36,6 +39,7 @@ import com.youth.banner.Banner;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,6 +50,8 @@ public class HomeFragment extends Fragment{
     private RecyclerView recyclerView;
     private List<Post> postList = new ArrayList<>();
     private HomeAdapter homeAdapter;
+    private RefreshLayout refreshLayout;
+    private boolean hasMore = true;
 
     public HomeFragment(){}
 
@@ -68,25 +74,48 @@ public class HomeFragment extends Fragment{
         //banner设置方法全部调用完毕时最后调用
         banner.start();
 
+        refreshLayout = view.findViewById(R.id.home_refreshLayout);
+        //下拉刷新
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                refreshLayout.setNoMoreData(false);
+                postList.clear();
+                page = 1;
+                loadPost();
+                homeAdapter.notifyDataSetChanged();
+                refreshLayout.finishRefresh();
+            }
+        });
+
+        //上拉加载更多
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                loadPost();
+                homeAdapter.notifyDataSetChanged();
+                refreshLayout.finishLoadMore();
+            }
+        });
+
         return view;
     }
 
-    private void loadPost(Callback<HomePostResponse> callback){
+    private void loadPost(){
         MatsuriBBSService matsuriBBSService = MatsuriBBSManager.createOpenApiService();
-        matsuriBBSService.viewPost(page,null,null).enqueue(callback);
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        loadPost(new Callback<HomePostResponse>() {
+        matsuriBBSService.viewPost(page,null,null).enqueue(new Callback<HomePostResponse>() {
             @Override
             public void onResponse(Call<HomePostResponse> call, Response<HomePostResponse> response) {
-                if(response.body().getCode() == 200 && !response.body().isError() && response.body().getData() != null){
-                    postList = response.body().getData().getList();
+                if(response.body().getCode() == 200 && !response.body().isError() && response.body().getData() != null && response.body().getData().getList().size() == 0){
+                    Log.e("abc", "已无更多内容");
+                    hasMore = false;
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                } else if (response.body().getCode() == 200 && !response.body().isError() && response.body().getData() != null) {
+                    postList.addAll(response.body().getData().getList());
                     homeAdapter.setData(postList);
-                    Log.e("abc","获取成功");
-                } else {
+                    Log.e("abc", "获取成功");
+                } else  {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e("abc","获取失败");
                 }
@@ -97,6 +126,12 @@ public class HomeFragment extends Fragment{
                 Log.e("abc","网络访问失败");
             }
         });
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        loadPost();
     }
 
     @Override
