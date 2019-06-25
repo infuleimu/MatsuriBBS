@@ -10,7 +10,7 @@ import com.example.matsuribbsandroid.login.LoginResponse;
 public interface MatsuriBBSService {
 
 
-    String BASE_URL = "http://192.168.1.100:8080/BBS/api/";
+    String BASE_URL = "http://106.52.84.58:8080/MatsuriBBS/api/";
 
     //登录
 
