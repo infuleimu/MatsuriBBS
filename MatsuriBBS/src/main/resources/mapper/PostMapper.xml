@@ -37,11 +37,11 @@
             </association>
         </resultMap>
         <select id="selectByPageFun" parameterType="PageBean" resultMap="postBean">
-            SELECT p.*,u.userName,u.admin FROM post p LEFT JOIN user u ON p.uid = u.id LEFT JOIN reply r ON p.id = r.pid LEFT JOIN sub_reply sr ON r.id = sr.rid GROUP BY p.id,u.id,r.id,sr.id
+            SELECT a.* FROM (SELECT p.*,u.userName,u.admin FROM post p,user u where p.uid = u.id
             <if test="id != null and id !='' ">
-                HAVING p.sid = "${id}"
+                and p.sid=#{id}
             </if>
-            order by IFNULL(sr.replyDate,IFNULL(r.replyDate,p.postDate)) desc limit ${offset},${limit}
+            limit #{offset},#{limit}) a LEFT JOIN (SELECT id,pid,replyDate FROM reply ORDER BY replyDate desc limit 0,1) b on a.id = b.pid LEFT JOIN (SELECT id,pid,rid,replyDate FROM sub_reply ORDER BY replyDate desc limit 0,1) c on a.id = c.pid ORDER BY IFNULL(c.replyDate,IFNULL(b.replyDate,a.postDate)) desc
         </select>
 
         <resultMap id="postDetailBean" type="post">

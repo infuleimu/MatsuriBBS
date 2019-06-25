@@ -11,7 +11,7 @@
  Target Server Version : 80016
  File Encoding         : 65001
 
- Date: 21/06/2019 21:31:23
+ Date: 25/06/2019 17:44:58
 */
 
 SET NAMES utf8mb4;
@@ -47,6 +47,12 @@ CREATE TABLE `follow`  (
   CONSTRAINT `follow_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `follow_ibfk_2` FOREIGN KEY (`followerId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of follow
+-- ----------------------------
+INSERT INTO `follow` VALUES (3, 1, 2, '2019-06-24 21:43:41');
+INSERT INTO `follow` VALUES (4, 3, 2, '2019-06-24 21:45:52');
 
 -- ----------------------------
 -- Table structure for main_section
@@ -106,6 +112,7 @@ INSERT INTO `post` VALUES (2, 2, 1, 'test', 'nmsl', '2019-06-11 19:18:39', 0, 0,
 INSERT INTO `post` VALUES (3, 3, 1, '测试', '测试', '2019-06-11 18:56:29', 0, 0, 0, 0, 0);
 INSERT INTO `post` VALUES (4, 1, 1, '测试测试', '测试测试', '2019-06-11 19:24:34', 1, 0, 0, 0, 0);
 INSERT INTO `post` VALUES (5, 1, 1, '发帖测试', '发帖测试', '2019-06-18 07:30:18', 2, 0, 0, 0, 1);
+INSERT INTO `post` VALUES (8, 1, 1, '排序测试', '测试', '2019-06-25 17:19:27', 0, 0, 0, 0, 0);
 
 -- ----------------------------
 -- Table structure for reply
@@ -135,6 +142,7 @@ INSERT INTO `reply` VALUES (4, 2, 1, 'wcnm', '2019-06-10 20:20:53', 0);
 INSERT INTO `reply` VALUES (6, 3, 1, '灌水测试02', '2019-06-11 16:42:50', 0);
 INSERT INTO `reply` VALUES (7, 3, 1, '灌水测试03', '2019-06-11 16:44:17', 0);
 INSERT INTO `reply` VALUES (10, 1, 1, '回复测试01', '2019-06-18 13:52:35', 0);
+INSERT INTO `reply` VALUES (11, 1, 5, '排序测试', '2019-06-25 17:20:14', 0);
 
 -- ----------------------------
 -- Table structure for sub_reply
@@ -143,6 +151,7 @@ DROP TABLE IF EXISTS `sub_reply`;
 CREATE TABLE `sub_reply`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
   `rid` int(11) NOT NULL,
   `content` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `replyDate` datetime(0) NULL DEFAULT NULL,
@@ -150,20 +159,23 @@ CREATE TABLE `sub_reply`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `uid`(`uid`) USING BTREE,
   INDEX `rid`(`rid`) USING BTREE,
+  INDEX `sub_reply_ibfk_2`(`pid`) USING BTREE,
   CONSTRAINT `sub_reply_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `sub_reply_ibfk_2` FOREIGN KEY (`rid`) REFERENCES `reply` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `sub_reply_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `sub_reply_ibfk_3` FOREIGN KEY (`rid`) REFERENCES `reply` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sub_reply
 -- ----------------------------
-INSERT INTO `sub_reply` VALUES (1, 3, 1, '吃瓜', '2019-06-10 19:47:02', 0);
-INSERT INTO `sub_reply` VALUES (2, 2, 1, 'sb', '2019-06-10 21:04:33', 0);
-INSERT INTO `sub_reply` VALUES (3, 1, 1, '???', '2019-06-10 23:48:54', 0);
-INSERT INTO `sub_reply` VALUES (4, 2, 1, '¿', '2019-06-09 23:49:12', 0);
-INSERT INTO `sub_reply` VALUES (5, 3, 2, 'zaima?', '2019-06-11 15:40:26', 0);
-INSERT INTO `sub_reply` VALUES (6, 1, 2, '???什么鬼', '2019-06-11 15:40:50', 0);
-INSERT INTO `sub_reply` VALUES (7, 2, 2, '认真的?', '2019-06-11 16:26:24', 0);
+INSERT INTO `sub_reply` VALUES (1, 3, 1, 1, '吃瓜', '2019-06-10 19:47:02', 0);
+INSERT INTO `sub_reply` VALUES (2, 2, 1, 1, 'sb', '2019-06-10 21:04:33', 0);
+INSERT INTO `sub_reply` VALUES (3, 1, 1, 1, '???', '2019-06-10 23:48:54', 0);
+INSERT INTO `sub_reply` VALUES (4, 2, 1, 1, '¿', '2019-06-09 23:49:12', 0);
+INSERT INTO `sub_reply` VALUES (5, 3, 1, 2, 'zaima?', '2019-06-11 15:40:26', 0);
+INSERT INTO `sub_reply` VALUES (6, 1, 1, 2, '???什么鬼', '2019-06-11 15:40:50', 0);
+INSERT INTO `sub_reply` VALUES (7, 2, 1, 2, '认真的?', '2019-06-11 16:26:24', 0);
+INSERT INTO `sub_reply` VALUES (10, 3, 1, 2, '排序测试', '2019-06-25 17:22:05', 0);
 
 -- ----------------------------
 -- Table structure for sub_section
