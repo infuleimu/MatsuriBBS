@@ -2,7 +2,6 @@ package com.example.matsuribbsandroid.fragment;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +14,16 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.matsuribbsandroid.R;
+import com.example.matsuribbsandroid.forumFragmentItem.FifthFragment;
+import com.example.matsuribbsandroid.forumFragmentItem.FirstFragment;
+import com.example.matsuribbsandroid.forumFragmentItem.FourthFragment;
+import com.example.matsuribbsandroid.forumFragmentItem.SecondFragment;
+import com.example.matsuribbsandroid.forumFragmentItem.SixthFragment;
+import com.example.matsuribbsandroid.forumFragmentItem.ThirdFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 public class ForumFragment extends Fragment {
