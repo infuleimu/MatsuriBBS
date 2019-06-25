@@ -9,7 +9,7 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/forum_tabs"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="50dp"
         app:tabIndicatorColor="#16a3f2"
         app:tabSelectedTextColor="#16a3f2"
         app:tabMode="scrollable"

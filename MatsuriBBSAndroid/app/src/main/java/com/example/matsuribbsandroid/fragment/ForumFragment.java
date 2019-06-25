@@ -30,12 +30,10 @@ public class ForumFragment extends Fragment {
     TabLayout forumTabs;
 
     ViewPager forumPager;
-    public static final String[] sTitle = new String[]{"我的收藏", "魔兽世界", "网事杂谈", "厂商专区", "手机游戏", "传统游戏", "网络游戏"};
+    public static final String[] sTitle = new String[]{"魔兽世界", "网事杂谈", "厂商专区", "单机热游", "网络游戏", "手机游戏", "云玩家专区"};
 
     public ForumFragment() {
     }
-
-
 
     @Nullable
     @Override

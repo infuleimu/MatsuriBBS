@@ -55,6 +55,14 @@ public class HomeFragment extends Fragment{
 
     public HomeFragment(){}
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (getUserVisibleHint()){
+            loadPost();
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -131,7 +139,6 @@ public class HomeFragment extends Fragment{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        loadPost();
     }
 
     @Override
