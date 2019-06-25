@@ -1,4 +1,4 @@
-package com.example.matsuribbsandroid.fragment;
+package com.example.matsuribbsandroid.forumFragmentItem;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.matsuribbsandroid.R;
-
+//论坛界面的子Fragment
 public class ThirdFragment extends Fragment {
     public ThirdFragment(){}
 

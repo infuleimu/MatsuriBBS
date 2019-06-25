@@ -3,14 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragment.FirstFragment"
+    tools:context=".forumFragmentItem.FirstFragment"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textView9"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/first_forum_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="First" />
+        android:layout_height="match_parent" />
 </LinearLayout>

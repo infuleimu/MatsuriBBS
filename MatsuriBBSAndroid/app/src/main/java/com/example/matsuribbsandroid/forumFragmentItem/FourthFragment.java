@@ -1,4 +1,4 @@
-package com.example.matsuribbsandroid.fragment;
+package com.example.matsuribbsandroid.forumFragmentItem;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,15 +10,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.matsuribbsandroid.R;
-
-public class SixthFragment extends Fragment {
-    public SixthFragment(){}
+//论坛界面的子Fragment
+public class FourthFragment extends Fragment {
+    public FourthFragment(){}
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sixth,container,false);
+        View view = inflater.inflate(R.layout.fragment_fourth,container,false);
         return view;
     }
 }
