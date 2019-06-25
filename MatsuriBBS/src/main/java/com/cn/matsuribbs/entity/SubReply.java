@@ -9,6 +9,7 @@ public class SubReply {
 
     private Integer id;
     private Integer uid;
+    private Integer pid;
     private Integer rid;
     private String content;
     private Timestamp replyDate = new Timestamp((new java.util.Date()).getTime());
@@ -30,6 +31,14 @@ public class SubReply {
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     public Integer getRid() {
