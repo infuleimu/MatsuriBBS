@@ -3,19 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ReleasePostActivity">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:background="#fff"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        app:navigationIcon="@mipmap/ic_back"
-
-        >
+        app:navigationIcon="@mipmap/ic_back">
 
         <TextView
             android:id="@+id/subSection_title"
@@ -34,13 +36,31 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/add" />
     </androidx.appcompat.widget.Toolbar>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/editText8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"/>
-    </ScrollView>
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="请输入标题"
+            />
+
+        <EditText
+            android:id="@+id/editText9"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="请输入内容"
+            android:ems="10"
+            android:gravity="left"
+            android:inputType="textMultiLine"
+            android:text="" />
+    </LinearLayout>
+
+
 </LinearLayout>

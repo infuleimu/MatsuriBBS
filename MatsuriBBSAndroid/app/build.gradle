@@ -35,6 +35,8 @@ dependencies {
 
     implementation 'com.makeramen:roundedimageview:2.2.1'//圆形头像依赖
 
+    implementation 'com.github.CodingEnding:PopupLayout:v1.0'//弹出底部窗口依赖
+
     implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
     implementation 'com.google.android.material:material:1.0.0-alpha1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0-beta01'

@@ -5,11 +5,10 @@
 
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_jianlai"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:text="First" />
+        android:layout_weight="1"
+        android:text="剑来！！！！" />
 </LinearLayout>
