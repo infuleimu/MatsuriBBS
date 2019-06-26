@@ -58,10 +58,11 @@
                 <id column="id" property="id" />
                 <result column="userName" property="userName" />
                 <result column="avatar" property="avatar" />
+                <result column="admin" property="admin" />
             </association>
         </resultMap>
         <select id="selectByPostId" parameterType="int" resultMap="postDetailBean">
-            SELECT p.*,u.id,u.userName,u.avatar FROM post p,user u where p.uid=u.id and p.id=#{id}
+            SELECT p.*,u.id,u.userName,u.avatar,u.admin FROM post p,user u where p.uid=u.id and p.id=#{id}
         </select>
 
         <insert id="insertFun" parameterType="post">

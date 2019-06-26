@@ -10,25 +10,16 @@
             <result column="content" property="content" />
             <result column="replyDate" property="replyDate" />
             <result column="likeNum" property="likeNum" />
+            <result column="subReplyNum" property="subReplyNum" />
             <association property="author" javaType="User">
-                <id column="id" property="id" />
+                <id column="uid" property="id" />
                 <result column="userName" property="userName" />
                 <result column="avatar" property="avatar" />
+                <result column="admin" property="admin" />
             </association>
-            <collection property="subReply" ofType="SubReply">
-                <id column="sub_id" property="id" />
-                <result column="sub_content" property="content" />
-                <result column="sub_replyDate" property="replyDate" />
-                <result column="sub_likeNum" property="likeNum" />
-                <association property="author" javaType="User">
-                    <id column="sub_uid" property="id" />
-                    <result column="sub_userName" property="userName" />
-                    <result column="sub_avatar" property="avatar" />
-                </association>
-            </collection>
         </resultMap>
         <select id="selectByPostIDFun" parameterType="PageBean" resultMap="ReplyBean">
-            SELECT * FROM (SELECT r.*,u.id mid,u.userName muserName,u.avatar mavatar FROM reply r,user u where r.uid =u.id and r.pid=#{id} ORDER BY r.replyDate limit ${offset},${limit}) a LEFT JOIN (SELECT sr.id sub_id,sr.rid sub_rid,sr.content sub_content,sr.replyDate sub_replyDate,sr.likeNum sub_likeNum,u.id sub_uid,u.userName sub_userName,u.avatar sub_avatar FROM reply r LEFT JOIN sub_reply sr ON sr.rid = r.id LEFT JOIN user u ON sr.uid =u.id and r.pid=#{id} LEFT JOIN sub_reply srb on srb.rid = sr.rid and sr.replyDate>srb.replyDate GROUP BY sr.id,u.id HAVING count(srb.id)&lt;3 ORDER BY sr.replyDate) b on a.id=b.sub_rid and pid=#{id}
+            SELECT r.*,u.id uid,u.userName,u.avatar,u.admin,(SELECT count(*) FROM sub_reply where rid = r.id) subReplyNum FROM reply r,user u where r.uid =u.id and r.pid=#{id} ORDER BY r.replyDate limit #{offset},#{limit}
         </select>
 
         <select id="selectCountByPageFun" parameterType="PageBean" resultType="int">
