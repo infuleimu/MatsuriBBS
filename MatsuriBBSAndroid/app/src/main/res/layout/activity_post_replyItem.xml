@@ -13,7 +13,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/postdetail_user_avatar"
+                android:id="@+id/replyItem_user_avatar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/gd"
@@ -28,60 +28,19 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/postdetail_username"
+                    android:id="@+id/replyItem_userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="梁彬"
                     android:textColor="#000" />
 
                 <TextView
-                    android:id="@+id/postdetail_date"
+                    android:id="@+id/replyItem_replyDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:text="6-10"
                     android:textSize="12sp" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="6dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/post_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="wdnmd我奔溃了   我柜子动了我不打了wdnmd我奔溃了   我柜子动了我不打了wdnmd我奔溃了   我柜子动了我不打了wdnmd我奔溃了   我柜子动了我不打了wdnmd我奔溃了   我柜子动了我不打了" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="6dp"
-            android:paddingBottom="6dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:text="查看4条回复" />
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/enter_small"
-                    />
             </LinearLayout>
 
             <LinearLayout
@@ -96,6 +55,7 @@
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/praise" />
                 <TextView
+                    android:id="@+id/replyItem_likeNum"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
@@ -103,6 +63,33 @@
                     android:layout_marginRight="8dp"
                     android:text="1500"/>
             </LinearLayout>
+
+
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:orientation="vertical"
+            android:paddingLeft="46dp">
+
+            <TextView
+                android:id="@+id/replyItem_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textSize="14dp"
+                android:text="wdnmd我奔溃了   我柜子动了我不打了wdnmd我奔溃了   我柜子动了我不打了" />
+
+            <TextView
+                android:id="@+id/replyItem_viewMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="12dp"
+                android:textColor="#008173"
+                android:text="查看1条回复 >" />
+
+        </LinearLayout>
 </LinearLayout>
