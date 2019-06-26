@@ -7,7 +7,7 @@
     android:paddingLeft="8dp"
     android:paddingRight="8dp"
     android:paddingTop="6dp"
-    android:background="@drawable/textbottomlines">
+    android:paddingBottom="20dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -78,7 +78,6 @@
                 android:id="@+id/replyitem_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:textSize="14dp"
                 android:text="wdnmd我奔溃了   我柜子动了我不打了wdnmd我奔溃了   我柜子动了我不打了" />
 
@@ -86,7 +85,7 @@
                 android:id="@+id/replyitem_viewMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:textSize="12dp"
                 android:textColor="#008173"
                 android:text="查看1条回复 >" />
