@@ -15,6 +15,8 @@ public class PostActivity extends AppCompatActivity {
 
         ImageView btncollection=findViewById(R.id.btn_collection);
 
+
+
         setContentView(R.layout.activity_post);
 
     }

@@ -74,6 +74,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
+                    android:id="@+id/btn_more_reply"
                     android:layout_gravity="center"
                     android:text="查看4条回复" />
                 <ImageView
