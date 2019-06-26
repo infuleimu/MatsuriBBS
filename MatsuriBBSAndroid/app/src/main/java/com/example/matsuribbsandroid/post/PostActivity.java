@@ -3,6 +3,7 @@ package com.example.matsuribbsandroid.post;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,8 +39,6 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static java.security.AccessController.getContext;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -92,7 +91,8 @@ public class PostActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        postAdapter = new PostAdapter(replyList,this,R.layout.activity_post_replyitem);
+        postAdapter = new PostAdapter(replyList,R.layout.activity_post_replyitem);
+
         recyclerView.setAdapter(postAdapter);
     }
 
@@ -109,6 +109,7 @@ public class PostActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         loadPostDetail();
+        loadPostReply();
     }
 
     private void loadPostDetail() {
@@ -145,6 +146,29 @@ public class PostActivity extends AppCompatActivity {
         postdetailLikeNum.setText(postDetail.getLikeNum().toString());
     }
 
+    private void loadPostReply() {
+        MatsuriBBSService service = MatsuriBBSManager.createOpenApiService();
+        service.viewPostReply(pid).enqueue(new Callback<PostReplyResponse>() {
+            @Override
+            public void onResponse(Call<PostReplyResponse> call, Response<PostReplyResponse> response) {
+                if (!response.body().isError() && response.body().getCode() == 200 && response.body().getData() != null && response.body().getData().getList().size() == 0) {
+                    refreshLayout.finishLoadMoreWithNoMoreData();
+                } else if (!response.body().isError() && response.body().getCode() == 200) {
+                    replyList = response.body().getData().getList();
+                    postAdapter.setData(replyList);
+                    Log.e("post","获取回复成功");
+                } else  {
+                    Toast.makeText(PostActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostReplyResponse> call, Throwable t) {
+                Toast.makeText(PostActivity.this, "网络访问失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     static class PostReplyViewHolder extends RecyclerView.ViewHolder{
         XCRoundImageView replyItem_user_avatar;
         TextView replyItem_userName;
@@ -153,14 +177,15 @@ public class PostActivity extends AppCompatActivity {
         TextView replyItem_content;
         TextView replyItem_viewMore;
 
-        public PostReplyViewHolder(@NonNull View itemView) {
+        public PostReplyViewHolder(@NonNull View itemView,Context context) {
             super(itemView);
-            this.replyItem_user_avatar = itemView.findViewById(R.id.replyItem_user_avatar);
-            this.replyItem_userName = itemView.findViewById(R.id.replyItem_userName);
-            this.replyItem_replyDate = itemView.findViewById(R.id.replyItem_replyDate);
-            this.replyItem_likeNum = itemView.findViewById(R.id.replyItem_likeNum);
-            this.replyItem_content = itemView.findViewById(R.id.replytem_content);
-            this.replyItem_viewMore = itemView.findViewById(R.id.replyItem_viewMore);
+
+            this.replyItem_user_avatar = itemView.findViewById(R.id.replyitem_user_avatar);
+            this.replyItem_userName = itemView.findViewById(R.id.replyitem_userName);
+            this.replyItem_replyDate = itemView.findViewById(R.id.replyitem_replyDate);
+            this.replyItem_likeNum = itemView.findViewById(R.id.replyitem_likeNum);
+            this.replyItem_content = itemView.findViewById(R.id.replyitem_content);
+            this.replyItem_viewMore = itemView.findViewById(R.id.replyitem_viewMore);
         }
 
         public void updatePostReply(Reply reply) {
@@ -183,22 +208,22 @@ public class PostActivity extends AppCompatActivity {
 
     class PostAdapter extends RecyclerView.Adapter<PostReplyViewHolder> {
         private List<Reply> reply;
-        private Context context;
 
         @LayoutRes
         private int layoutResId;
 
-        public PostAdapter(List<Reply> reply, Context context, int layoutResId) {
+
+        public PostAdapter(List<Reply> reply, int layoutResId) {
+
             this.reply = reply;
-            this.context = context;
             this.layoutResId = layoutResId;
         }
 
         @NonNull
         @Override
         public PostReplyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(context).inflate(layoutResId, parent, false);
-            return new PostReplyViewHolder(itemView);
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(layoutResId, parent, false);
+            return new PostReplyViewHolder(itemView,parent.getContext());
         }
 
         @Override
@@ -236,7 +261,8 @@ public class PostActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return reply.size();
+            //return reply.size();
+            return 0;
         }
 
         public void setData(List<Reply> reply) {
