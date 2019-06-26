@@ -4,29 +4,26 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="18dp"
     android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingRight="18dp"
-    android:background="@drawable/textbottomlines">
+    android:paddingBottom="10dp">
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/post_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
         android:text="摄影日记：像你一样的人"
-        android:textStyle="bold"
-        android:textSize="20dp"/>
+        android:textSize="18dp"
+        android:textColor="#000"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/post_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingMultiplier="1.2"
         android:maxLines="2"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="5dp"
         android:text="遇到一个可爱的小姐姐，觉得她长得很清纯甜美，所以选择在一个环境比较日系的餐厅拍照。"
         android:textSize="16dp"/>
 
@@ -42,11 +39,21 @@
             android:layout_weight="1"
 
             android:orientation="horizontal">
+
             <TextView
+                android:id="@+id/post_author"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:text="小岛立夏"
                 android:textSize="14dp" />
+
+            <ImageView
+                android:id="@+id/post_author_isAdmin"
+                android:layout_width="30dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                app:srcCompat="@drawable/adminicon" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,10 +70,11 @@
                 app:srcCompat="@drawable/chakanshu" />
 
             <TextView
+                android:id="@+id/post_viewNum"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="6dp"
-                android:text="142" />
+                android:text="1500" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -83,10 +91,11 @@
                 app:srcCompat="@drawable/pinglun" />
 
             <TextView
+                android:id="@+id/post_replyNum"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="6dp"
-                android:text="22" />
+                android:text="1500" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -103,10 +112,11 @@
                 app:srcCompat="@drawable/dianzan" />
 
             <TextView
+                android:id="@+id/post_likeNum"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginLeft="6dp"
-                android:text="1500"/>
+                android:text="1500" />
         </LinearLayout>
 
     </LinearLayout>

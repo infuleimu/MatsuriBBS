@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Base">
         <activity android:name=".ReleasePostActivity"></activity>
-        <activity android:name=".PostActivity" />
+        <activity android:name=".post.PostActivity"></activity>
         <activity android:name=".SubSectionActivity" />
         <activity android:name=".my.MyActivity" />
         <activity android:name=".register.FinishRegister" />

@@ -47,7 +47,7 @@
                 android:paddingLeft="12dp">
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/user_img"
+                    android:id="@+id/postdetail_user_avatar"
                     android:layout_width="84dp"
                     android:layout_height="84dp"
                     android:layout_marginTop="10dp"

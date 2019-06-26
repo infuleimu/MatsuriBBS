@@ -15,7 +15,7 @@ public class Reply {
 
     private User author;
 
-    private List<SubReply> subReply;
+    private Integer subReplyNum;
 
     public Integer getId() {
         return id;
@@ -73,11 +73,11 @@ public class Reply {
         this.author = author;
     }
 
-    public List<SubReply> getSubReply() {
-        return subReply;
+    public Integer getSubReplyNum() {
+        return subReplyNum;
     }
 
-    public void setSubReply(List<SubReply> subReply) {
-        this.subReply = subReply;
+    public void setSubReplyNum(Integer subReplyNum) {
+        this.subReplyNum = subReplyNum;
     }
 }
