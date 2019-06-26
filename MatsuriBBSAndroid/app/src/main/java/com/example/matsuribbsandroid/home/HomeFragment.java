@@ -45,7 +45,6 @@ public class HomeFragment extends Fragment{
     private List<Post> postList = new ArrayList<>();
     private HomeAdapter homeAdapter;
     private RefreshLayout refreshLayout;
-    private boolean hasMore = true;
 
     public HomeFragment(){}
 
@@ -111,7 +110,6 @@ public class HomeFragment extends Fragment{
             public void onResponse(Call<HomePostResponse> call, Response<HomePostResponse> response) {
                 if(response.body().getCode() == 200 && !response.body().isError() && response.body().getData() != null && response.body().getData().getList().size() == 0){
                     Log.e("abc", "已无更多内容");
-                    hasMore = false;
                     refreshLayout.finishLoadMoreWithNoMoreData();
                 } else if (response.body().getCode() == 200 && !response.body().isError()) {
                     postList.addAll(response.body().getData().getList());
@@ -142,6 +140,7 @@ public class HomeFragment extends Fragment{
             recyclerView.setHasFixedSize(true);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
             recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setNestedScrollingEnabled(false);//禁止滑动
             recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
             homeAdapter = new HomeAdapter(postList,getContext(),R.layout.post_item);
             recyclerView.setAdapter(homeAdapter);

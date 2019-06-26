@@ -26,5 +26,5 @@ public interface MatsuriBBSService {
     Call<PostDetailResponse> viewPostDetail(@Path("id") Integer id);
 
     @GET("post/{id}/reply")
-    Call<PostReplyResponse> viewPostReply(@Path("id") Integer id);
+    Call<PostReplyResponse> viewPostReply(@Path("id") Integer id,@Query("page")Integer page,@Query("limit")Integer limit);
 }

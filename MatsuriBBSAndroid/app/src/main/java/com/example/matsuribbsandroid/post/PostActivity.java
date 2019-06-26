@@ -29,9 +29,12 @@ import com.example.matsuribbsandroid.service.MatsuriBBSManager;
 import com.example.matsuribbsandroid.service.MatsuriBBSService;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -69,7 +72,8 @@ public class PostActivity extends AppCompatActivity {
     private Integer pid;
     private Post post;
     private PostAdapter postAdapter;
-    private List<Reply> replyList;
+    private List<Reply> replyList = new ArrayList<>();
+    private Integer page = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,9 +94,19 @@ public class PostActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.setNestedScrollingEnabled(false);//禁止滑动
         postAdapter = new PostAdapter(replyList,R.layout.activity_post_replyitem);
         recyclerView.setAdapter(postAdapter);
+
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                loadPostReply();
+                postAdapter.notifyDataSetChanged();
+                refreshLayout.finishLoadMore();
+            }
+        });
     }
 
     @Override
@@ -147,16 +161,16 @@ public class PostActivity extends AppCompatActivity {
 
     private void loadPostReply() {
         MatsuriBBSService service = MatsuriBBSManager.createOpenApiService();
-        service.viewPostReply(pid).enqueue(new Callback<PostReplyResponse>() {
+        service.viewPostReply(pid,page,null).enqueue(new Callback<PostReplyResponse>() {
             @Override
             public void onResponse(Call<PostReplyResponse> call, Response<PostReplyResponse> response) {
                 if (!response.body().isError() && response.body().getCode() == 200 && response.body().getData() != null && response.body().getData().getList().size() == 0) {
                     refreshLayout.finishLoadMoreWithNoMoreData();
                 } else if (!response.body().isError() && response.body().getCode() == 200) {
-                    replyList = response.body().getData().getList();
+                    replyList.addAll(response.body().getData().getList());
                     postAdapter.setData(replyList);
                     Log.e("post","获取回复成功");
-                } else  {
+                } else {
                     Toast.makeText(PostActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -169,7 +183,7 @@ public class PostActivity extends AppCompatActivity {
     }
 
     static class PostReplyViewHolder extends RecyclerView.ViewHolder{
-        XCRoundImageView replyItem_user_avatar;
+        RoundedImageView replyItem_user_avatar;
         TextView replyItem_userName;
         TextView replyItem_replyDate;
         TextView replyItem_likeNum;
@@ -200,7 +214,11 @@ public class PostActivity extends AppCompatActivity {
             replyItem_replyDate.setText(dateFormat.format(reply.getReplyDate()));
             replyItem_likeNum.setText(reply.getLikeNum().toString());
             replyItem_content.setText(reply.getContent());
-            replyItem_viewMore.setText("查看"+reply.getSubReplyNum()+"条回复");
+            if(reply.getSubReplyNum() == 0){
+                replyItem_viewMore.setVisibility(View.GONE);
+            } else {
+                replyItem_viewMore.setText("查看"+reply.getSubReplyNum()+"条回复");
+            }
         }
     }
 
@@ -257,8 +275,7 @@ public class PostActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            //return reply.size();
-            return 0;
+            return reply.size();
         }
 
         public void setData(List<Reply> reply) {
