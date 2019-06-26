@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment{
                     Log.e("abc", "已无更多内容");
                     hasMore = false;
                     refreshLayout.finishLoadMoreWithNoMoreData();
-                } else if (response.body().getCode() == 200 && !response.body().isError() && response.body().getData() != null) {
+                } else if (response.body().getCode() == 200 && !response.body().isError()) {
                     postList.addAll(response.body().getData().getList());
                     homeAdapter.setData(postList);
                     Log.e("abc", "获取成功");

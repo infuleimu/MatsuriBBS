@@ -13,10 +13,9 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/replyItem_user_avatar"
+                android:id="@+id/replyitem_user_avatar"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/gd"
                 app:riv_border_color="#333333"
                 app:riv_border_width="1dp"
                 app:riv_oval="true" />
@@ -28,14 +27,14 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/replyItem_userName"
+                    android:id="@+id/replyitem_userName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="梁彬"
                     android:textColor="#000" />
 
                 <TextView
-                    android:id="@+id/replyItem_replyDate"
+                    android:id="@+id/replyitem_replyDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
@@ -55,7 +54,7 @@
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/praise" />
                 <TextView
-                    android:id="@+id/replyItem_likeNum"
+                    android:id="@+id/replyitem_likeNum"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_gravity="center"
@@ -75,7 +74,7 @@
             android:paddingLeft="46dp">
 
             <TextView
-                android:id="@+id/replyItem_content"
+                android:id="@+id/replyitem_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -83,7 +82,7 @@
                 android:text="wdnmd我奔溃了   我柜子动了我不打了wdnmd我奔溃了   我柜子动了我不打了" />
 
             <TextView
-                android:id="@+id/replyItem_viewMore"
+                android:id="@+id/replyitem_viewMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
