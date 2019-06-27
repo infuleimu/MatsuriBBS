@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Button quit;
     private LinearLayout quitContext;
 
+    private Fragment homeFragment;
+    private Fragment messageFragment;
+    private Fragment forumFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +101,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         //导航按钮大于3个色时候，按钮标签强制显示
         navigation.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
-        replaceFragment(new HomeFragment());
+
+        replaceFragment(1);
 
         checkLogin();
 
@@ -139,15 +144,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    private void replaceFragment(Fragment fragment) {
-        //1、实例化Fragment对象
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        //2、实例化FragmentTransaction对象
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        //3、通过事物对象,调用替换方法
-        transaction.replace(R.id.framelayout, fragment);
-        //4、执行事物
-        transaction.commit();
+    private void hideFragment(FragmentTransaction transaction) {
+        if (homeFragment !=null){
+            transaction.hide(homeFragment);
+        }
+        if (messageFragment !=null){
+            transaction.hide(messageFragment);
+        }
+        if (forumFragment !=null){
+            transaction.hide(forumFragment);
+        }
+    }
+
+    private void replaceFragment(int position) {
+        //1、实例化Fragment对象,实例化FragmentTransaction对象
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if(position == 1){
+            if(homeFragment == null){
+                homeFragment = new HomeFragment();
+                transaction.add(R.id.framelayout,homeFragment);
+            }
+            hideFragment(transaction);
+            transaction.show(homeFragment).commit();
+        } else if (position == 2){
+            if(messageFragment == null){
+                messageFragment = new MessageFragment();
+                transaction.add(R.id.framelayout,messageFragment);
+            }
+            hideFragment(transaction);
+            transaction.show(messageFragment).commit();
+        } else if (position == 3){
+            if(forumFragment == null){
+                forumFragment = new ForumFragment();
+                transaction.add(R.id.framelayout,forumFragment);
+            }
+            hideFragment(transaction);
+            transaction.show(forumFragment).commit();
+        }
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -157,15 +190,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    replaceFragment(new HomeFragment());
+                    replaceFragment(1);
                     toolbar_title.setText(null);
                     return true;
                 case R.id.navigation_message:
-                    replaceFragment(new MessageFragment());
+                    replaceFragment(2);
                     toolbar_title.setText("消息");
                     return true;
                 case R.id.navigation_forum:
-                    replaceFragment(new ForumFragment());
+                    replaceFragment(3);
                     toolbar_title.setText("论坛");
                     return true;
             }
