@@ -12,6 +12,7 @@ import com.example.matsuribbsandroid.login.LoginResponse;
 import com.example.matsuribbsandroid.post.MoreReplyResponse;
 import com.example.matsuribbsandroid.post.PostDetailResponse;
 import com.example.matsuribbsandroid.post.PostReplyResponse;
+import com.example.matsuribbsandroid.post.ReplyDetailResponse;
 
 public interface MatsuriBBSService {
 
@@ -32,6 +33,9 @@ public interface MatsuriBBSService {
 
     @GET("main_section/{id}/sub_section")
     Call<SubSectionResponse> viewSunSection(@Path("id") Integer id);
+
+    @GET("reply/{id}")
+    Call<ReplyDetailResponse> viewReplyDetail(@Path("id") Integer id);
 
     @GET("/reply/{id}/subreply")
     Call<MoreReplyResponse> viewSubReply(@Path("id") Integer id,@Query("page")Integer page,@Query("limit")Integer limit);

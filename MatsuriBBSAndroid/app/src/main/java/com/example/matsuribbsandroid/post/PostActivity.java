@@ -21,10 +21,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.codingending.popuplayout.PopupLayout;
+import com.example.matsuribbsandroid.MainActivity;
 import com.example.matsuribbsandroid.R;
 import com.example.matsuribbsandroid.XCRoundImageView;
 import com.example.matsuribbsandroid.entity.Post;
 import com.example.matsuribbsandroid.entity.Reply;
+import com.example.matsuribbsandroid.home.HomeFragment;
 import com.example.matsuribbsandroid.service.MatsuriBBSManager;
 import com.example.matsuribbsandroid.service.MatsuriBBSService;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -121,6 +124,8 @@ public class PostActivity extends AppCompatActivity {
                 Toast.makeText(PostActivity.this, "点击用户头像", Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     @Override
@@ -291,6 +296,9 @@ public class PostActivity extends AppCompatActivity {
                     intent.putExtra("uid",reply.get(position).getId());
                     startActivity(intent);*/
                     Toast.makeText(PostActivity.this, "点击更多回复", Toast.LENGTH_SHORT).show();
+                    View view=View.inflate(PostActivity.this,R.layout.more_reply,null);
+                    PopupLayout popupLayout=PopupLayout.init(PostActivity.this,view);
+                    popupLayout.show();
                 }
             });
             holder.updatePostReply(reply.get(position),position);
