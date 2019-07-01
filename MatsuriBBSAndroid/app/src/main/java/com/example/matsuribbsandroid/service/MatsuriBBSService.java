@@ -9,6 +9,7 @@ import retrofit2.http.Query;
 import com.example.matsuribbsandroid.forumFragmentItem.SubSectionResponse;
 import com.example.matsuribbsandroid.home.HomePostResponse;
 import com.example.matsuribbsandroid.login.LoginResponse;
+import com.example.matsuribbsandroid.post.MoreReplyResponse;
 import com.example.matsuribbsandroid.post.PostDetailResponse;
 import com.example.matsuribbsandroid.post.PostReplyResponse;
 
@@ -32,4 +33,6 @@ public interface MatsuriBBSService {
     @GET("main_section/{id}/sub_section")
     Call<SubSectionResponse> viewSunSection(@Path("id") Integer id);
 
+    @GET("/reply/{id}/subreply")
+    Call<MoreReplyResponse> viewSubReply(@Path("id") Integer id,@Query("page")Integer page,@Query("limit")Integer limit);
 }

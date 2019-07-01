@@ -108,6 +108,19 @@ public class PostActivity extends AppCompatActivity {
                 refreshLayout.finishLoadMore();
             }
         });
+
+        postdetailUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PostActivity.this, "点击用户名", Toast.LENGTH_SHORT).show();
+            }
+        });
+        postdetailUserAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(PostActivity.this, "点击用户头像", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -186,6 +199,7 @@ public class PostActivity extends AppCompatActivity {
     static class PostReplyViewHolder extends RecyclerView.ViewHolder{
         RoundedImageView replyItem_user_avatar;
         TextView replyItem_userName;
+        TextView replyItem_index;
         TextView replyItem_replyDate;
         TextView replyItem_likeNum;
         TextView replyItem_content;
@@ -196,13 +210,14 @@ public class PostActivity extends AppCompatActivity {
 
             this.replyItem_user_avatar = itemView.findViewById(R.id.replyitem_user_avatar);
             this.replyItem_userName = itemView.findViewById(R.id.replyitem_userName);
+            this.replyItem_index = itemView.findViewById(R.id.replyitem_index);
             this.replyItem_replyDate = itemView.findViewById(R.id.replyitem_replyDate);
             this.replyItem_likeNum = itemView.findViewById(R.id.replyitem_likeNum);
             this.replyItem_content = itemView.findViewById(R.id.replyitem_content);
             this.replyItem_viewMore = itemView.findViewById(R.id.replyitem_viewMore);
         }
 
-        public void updatePostReply(Reply reply) {
+        public void updatePostReply(Reply reply,int position) {
             Context context = itemView.getContext();
             if (reply == null || context == null){
                 return;
@@ -213,6 +228,7 @@ public class PostActivity extends AppCompatActivity {
                     .into(replyItem_user_avatar);
             replyItem_userName.setText(reply.getAuthor().getUserName());
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd");
+            replyItem_index.setText("第"+(position+2)+"楼");
             replyItem_replyDate.setText(dateFormat.format(reply.getReplyDate()));
             replyItem_likeNum.setText(reply.getLikeNum().toString());
             replyItem_content.setText(reply.getContent());
@@ -247,34 +263,37 @@ public class PostActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull PostReplyViewHolder holder, int position) {
             if (holder == null) return;
-            /*//点击用户名跳转
+            //点击用户名跳转
             holder.replyItem_userName.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(PostActivity.this,userInfoActivity.class);
+                    /*Intent intent = new Intent(PostActivity.this,userInfoActivity.class);
                     intent.putExtra("uid",reply.get(position).getUid());
-                    startActivity(intent);
+                    startActivity(intent);*/
+                    Toast.makeText(PostActivity.this, "点击用户名", Toast.LENGTH_SHORT).show();
                 }
             });
             //点击用户头像跳转
             holder.replyItem_user_avatar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(PostActivity.this,userInfoActivity.class);
+                    /*Intent intent = new Intent(PostActivity.this,userInfoActivity.class);
                     intent.putExtra("uid",reply.get(position).getUid());
-                    startActivity(intent);
+                    startActivity(intent);*/
+                    Toast.makeText(PostActivity.this, "点击用户头像", Toast.LENGTH_SHORT).show();
                 }
             });
             //点击查看更多回复
             holder.replyItem_viewMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(PostActivity.this,SubReplyActivity.class);
+                    /*Intent intent = new Intent(PostActivity.this,SubReplyActivity.class);
                     intent.putExtra("uid",reply.get(position).getId());
-                    startActivity(intent);
+                    startActivity(intent);*/
+                    Toast.makeText(PostActivity.this, "点击更多回复", Toast.LENGTH_SHORT).show();
                 }
-            });*/
-            holder.updatePostReply(reply.get(position));
+            });
+            holder.updatePostReply(reply.get(position),position);
         }
 
         @Override
